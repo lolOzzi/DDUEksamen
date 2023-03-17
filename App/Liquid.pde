@@ -1,11 +1,11 @@
 class Liquid {
   PVector loc, size;
-  float c;
+  float density;
 
-  Liquid(float x, float y, float w, float h, float c_) {
+  Liquid(float x, float y, float w, float h, float density_) {
     loc = new PVector(x, y);
     size = new PVector(w, h);
-    c = c_;
+    density = density_;
   }
 
   void display() {

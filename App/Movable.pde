@@ -2,6 +2,8 @@ public class Movable {
   PVector location, velocity, acceleration, size;
   float speed;
   float mass;
+  float cw;
+  float area;
   
   Movable()
   {
@@ -11,17 +13,20 @@ public class Movable {
     size = new PVector(48, 60);
     speed = 1f;
     mass = 1f;
+    cw = 1.1f;
+    area = 1 / size.y*size.y;
   }
 
   void update ()
   {
     applyForce(gravity());
-    
-    velocity.add(acceleration);
-    
-    if (velocity.y > 6) {
-      velocity.y = 6;
+    if (isInside(liquid)) {
+      drag(liquid);
     }
+    else if (isInside(air)) {
+      drag(air);
+    }
+    velocity.add(acceleration);
     location.add(velocity);
     acceleration.mult(0);
     print(velocity);
@@ -33,7 +38,7 @@ public class Movable {
   }
   
   PVector gravity(){
-    return new PVector(0, 9.82 * this.mass);
+    return new PVector(0, g * this.mass);
   }
 
   void applyForce(PVector force)
@@ -61,8 +66,8 @@ public class Movable {
 
   void drag(Liquid l) {
     float speed = velocity.mag();
-    // The force’s magnitude: Cd * v~2~
-    float dragMagnitude = l.c * speed * speed;
+    
+    float dragMagnitude = 0.5 * cw * area * l.density * speed * speed;
 
     PVector drag = velocity.get();
     drag.mult(-1);
@@ -78,7 +83,6 @@ public class Movable {
   }
 
   boolean isInside(Liquid l) {
-    //[offset-down] This conditional statement determines if the PVector location is inside the rectangle defined by the Liquid class.
     if (location.x>l.loc.x && location.x<l.loc.x+l.size.x && location.y>l.loc.y && location.y<l.loc.y+l.size.y)
     {
       return true;
