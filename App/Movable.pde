@@ -24,7 +24,6 @@ public class Movable {
     }
     location.add(velocity);
     acceleration.mult(0);
-    print(velocity);
   }
 
   void display ()
