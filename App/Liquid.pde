@@ -10,7 +10,7 @@ class Liquid {
 
   void display() {
     noStroke();
-    fill(175);
+    fill(0, 175, 255);
     rect(loc.x,loc.y,size.x,size.y);
   }
 

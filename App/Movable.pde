@@ -1,9 +1,9 @@
 public class Movable {
   PVector location, velocity, acceleration, size;
-  float speed;
   float mass;
   float cw;
   float area;
+  float volume;
   
   Movable()
   {
@@ -11,10 +11,10 @@ public class Movable {
     velocity = new PVector(0, 0);
     acceleration = new PVector(0, 0);
     size = new PVector(48, 60);
-    speed = 1f;
     mass = 1f;
     cw = 1.1f;
-    area = 1 / size.y*size.y;
+    area = size.x*size.x / pow(80, 2);
+    volume =  size.x * size.x *size.y / pow(80, 3);
   }
 
   void update ()
@@ -22,14 +22,17 @@ public class Movable {
     applyForce(gravity());
     if (isInside(liquid)) {
       drag(liquid);
+      buoyancy(liquid);
     }
     else if (isInside(air)) {
       drag(air);
+      buoyancy(air);
     }
+    
     velocity.add(acceleration);
     location.add(velocity);
     acceleration.mult(0);
-    print(velocity);
+    print(" " + round(velocity.y));
   }
 
   void display ()
@@ -67,7 +70,7 @@ public class Movable {
   void drag(Liquid l) {
     float speed = velocity.mag();
     
-    float dragMagnitude = 0.5 * cw * area * l.density * speed * speed;
+    float dragMagnitude = 0.5 * cw * area * l.density * speed * speed*pow(80, 1);
 
     PVector drag = velocity.get();
     drag.mult(-1);
@@ -80,6 +83,11 @@ public class Movable {
     // Apply the force.
     applyForce(drag);
     
+  }
+  
+  void buoyancy(Liquid l) {
+    PVector boing = new PVector(0, -1*l.density * volume);
+    applyForce(boing);
   }
 
   boolean isInside(Liquid l) {
