@@ -1,17 +1,22 @@
 class Player extends Movable {
   PVector speed;
   float jump;
+  boolean hitBlock = false;
 
   Player() {
     speed = new PVector(1, 0);
     mass = 2f;
     location = new PVector(50, 100);
-    jump = 1200f;
+    jump =  44.4;
   }
 
   void moveUpdate() {
-    location.add(speed);
     keyCheck();
+    hitBlock = inBlocks();
+    atEnd();
+    if (onGround == true && hitBlock == false) {
+      location.add(speed);
+    }
     update();
   }
 
@@ -28,7 +33,23 @@ class Player extends Movable {
       }
     }
   }
+
+  boolean inBlocks() {
+    for (StopBlock block : blockArr) {
+      if(block.location.x < location.x && location.x < block.location.x + block.size.x){
+        print("I AM INSIDE");
+        return true;
+      }
+    }
+    return false;
+  }
   
+  void atEnd(){
+    if(endBlock.location.x < location.x && location.x < endBlock.location.x + endBlock.size.x){
+      println("I AM AT THE END, CONGRATULATIONS");
+    }
+  }
+
   void jump(){
     applyForce(new PVector(0, -jump));
   }

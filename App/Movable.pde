@@ -16,14 +16,16 @@ public class Movable {
 
   void update ()
   {
-    if (onGround == false) {
-      applyForce(gravity());
-    } else if (velocity.y > 0)
+    onGround = isOnGround();
+
+    applyForce(gravity());
+
+
+    velocity.add(acceleration);
+    if (velocity.y > 0 && onGround == true)
     {
       velocity.y = 0;
     }
-
-    velocity.add(acceleration);
 
     if (velocity.y > 6) {
       velocity.y = 6;
@@ -89,5 +91,11 @@ public class Movable {
     } else {
       return false;
     }
+  }
+  boolean isOnGround() {
+    if (player.location.y + player.size.y >= height - ground.gHeight) {
+      return true;
+      
+    } else return false;
   }
 }
