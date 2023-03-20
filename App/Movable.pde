@@ -2,7 +2,8 @@ public class Movable {
   PVector location, velocity, acceleration, size;
   float speed;
   float mass;
-  
+  boolean onGround;
+
   Movable()
   {
     location = new PVector(random(0, 960), random(0, 580));
@@ -15,10 +16,15 @@ public class Movable {
 
   void update ()
   {
-    applyForce(gravity());
-    
+    if (onGround == false) {
+      applyForce(gravity());
+    } else if (velocity.y > 0)
+    {
+      velocity.y = 0;
+    }
+
     velocity.add(acceleration);
-    
+
     if (velocity.y > 6) {
       velocity.y = 6;
     }
@@ -30,8 +36,8 @@ public class Movable {
   {
     rect(location.x, location.y, size.x, size.y);
   }
-  
-  PVector gravity(){
+
+  PVector gravity() {
     return new PVector(0, 9.82 * this.mass);
   }
 
@@ -73,7 +79,6 @@ public class Movable {
 
     // Apply the force.
     applyForce(drag);
-    
   }
 
   boolean isInside(Liquid l) {
