@@ -2,19 +2,20 @@ import java.util.ArrayList;
 
 Liquid air;
 Liquid liquid;
-float g = 9.82 / 80;
+float g = 9.82;
 
 
 ArrayList<Movable> arr = new ArrayList<Movable>();
-int amount = 1;
+int amount = 10;
 
 public void setup() {
   size(960, 540);
+  frameRate(60);
   for (int i = 0; i < amount; i++) {
     arr.add(new Movable());
   }
-  liquid = new Liquid(0, height/2, width, height/2, 1000 / pow(80, 3));
-  air = new Liquid(0, 0, width, height/2, 1.204 / pow(80, 3) );
+  liquid = new Liquid(0, height/2, width, height/2, 1000 );
+  air = new Liquid(0, 0, width, height/2, 1.204 );
 }
 
 void draw() {
