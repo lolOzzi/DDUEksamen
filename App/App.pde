@@ -1,36 +1,36 @@
-import java.util.ArrayList;
+Ground ground;
 
-Liquid air;
-Liquid liquid;
-float g = 9.82;
-Ground ground = new Ground();
+ArrayList<StaticObject> staticObjectList = new ArrayList<StaticObject>();
+ArrayList<PImage> imgs = new ArrayList<PImage>();
 
-ArrayList<Movable> arr = new ArrayList<Movable>();
-int amount = 10;
+Helper helper = new Helper();
+SpriteAnimation spriteAnimation;
+
+GameState gameState;
+Level1 l1;
+Level currLevel;
 
 public void setup() {
-  size(960, 540);
-  //fullScreen();
+  //size(960, 540);
+  fullScreen();
   frameRate(60);
-  for (int i = 0; i < amount; i++) {
-    arr.add(new Movable());
-  }
-  liquid = new Liquid(0, 0, width, height/6, 1000 );
-  air = new Liquid(0, height/2, width, height/2, 1.204 );
+  gameState = new GameState();
+  currLevel = new Level1();
+  ground = new Ground();
+  imgs = helper.loadImages( "test/");
+  // Create a new SpriteAnimation object
+  spriteAnimation = new SpriteAnimation();
+
+  // Load sprite sheets for animation
+  PImage walkSpriteSheet = loadImage("coolguy_walk.png");
+
+  // Add sprite animations to the SpriteAnimation object
+  //Parameters: String name, PImage spriteSheet, int rows, int cols, int frameRate
+  spriteAnimation.addSprite("walk", walkSpriteSheet, 2, 2, 8);
 }
 
 void draw() {
   background(255);
-  liquid.display();
-  ground.display();
-  fill(0);
-
-  fill(49, 51, 56);
-  for (int i = 0; i < amount; i++) {
-    Movable p = arr.get(i);
-    p.update();
-    p.checkEdges();
-    p.display();
-  }
+  gameState.update();
   ellipse(mouseX, mouseY, 20, 20);
 }

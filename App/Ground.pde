@@ -3,7 +3,7 @@ class Ground{
   float cf = 0.4;
 
   Ground(){
-    gHeight = 100; 
+    gHeight = 24*8; 
   }
   
   void display(){

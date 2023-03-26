@@ -1,10 +1,3 @@
 class Player extends Movable{
   
-
-
-
-
-
-
-
 }
