@@ -1,6 +1,7 @@
 class Movable {
   PVector location, velocity, acceleration, size, start;
   float mass;
+
   float cw;
 
   float areaX;
@@ -34,6 +35,7 @@ class Movable {
 
   void update ()
   {
+
     
     liquidList = currLevel.liquidList;
     g = currLevel.g;
@@ -81,6 +83,7 @@ class Movable {
     velocity.add(acceleration);
     location.add(velocity);
     acceleration.mult(0);
+
 
     //println("Speed: x: " + velocity.x*frameRate / 80 + " y: " + velocity.y*frameRate / 80);
     count++;
@@ -152,6 +155,7 @@ class Movable {
 
     // Apply the force.
     applyForce(drag);
+
     //println("Drag: x: " + drag.x + " y: " + drag.y);
   }
 
