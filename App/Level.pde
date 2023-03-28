@@ -11,6 +11,9 @@ class Level {
   float g = 9.82;
   int count = 0; 
   
+    UIButton start = new UIButton(100, 100, 100, 100, "Start");
+  boolean startGame;
+  
   StopBlock endBlock;
   Ground ground;
 

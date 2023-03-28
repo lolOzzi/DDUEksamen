@@ -14,7 +14,7 @@ class Level0 extends Level {
     liquidList = super.getLiquidList();
     liquid = new Liquid(0, height/3, width, height/2, 1000, liquid_color);
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
-    
+    ground = new Ground();
     liquidList.add(air);
     liquidList.add(liquid);
 
@@ -33,7 +33,6 @@ class Level0 extends Level {
     ground.display();
 
     spriteAnimation.setSprite("walk");
-    spriteAnimation.display(0, 0);
     spriteAnimation.display(0, height - ground.size.y - 17*8);
     spriteAnimation.update();
 

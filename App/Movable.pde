@@ -318,4 +318,8 @@ boolean isOnGround(Ground ground) {
       return "none";
     }
   }
+
+  void setMass(float m) {
+    this.mass = m;
+  }
 }

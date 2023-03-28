@@ -20,10 +20,14 @@ class Button extends StaticObject {
      }
 
      void collision(Movable other) {
-      sprite.currentFrame = 1;
-      other.location = new PVector(other.location.x, location.y - other.size.y + 8);
-      other.velocity = new PVector(0, 0);
-      pressed = true;
+        println("mass: " + other.mass + " g: " + other.g );
+        if (other.mass * other.g > minForce && other.mass * other.g < maxForce) {
+        sprite.currentFrame = 1;
+        other.location = new PVector(other.location.x, location.y - other.size.y + 8);
+        other.velocity = new PVector(0, 0);
+        pressed = true;
+        }
+
      }
       
 }
