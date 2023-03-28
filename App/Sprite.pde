@@ -40,7 +40,7 @@ class Sprite {
   }
   
   // Draw the current frame of the animation
-  void draw(float x, float y) {
+  void display(float x, float y) {
     PImage frame = frames[currentFrame];
     image(frame, x, y);
   }

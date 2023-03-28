@@ -27,12 +27,15 @@ class StaticObject {
          if (texture != null) {
              image(texture, location.x, location.y, size.x, size.y);
          } else if (sprite != null) {
-             sprite.draw(location.x, location.y);
+             sprite.display(location.x, location.y);
              sprite.update();
          } else {
              fill(124, 0, 168);
              rect(location.x, location.y, size.x, size.y);
          }
+     }
+     void collision(Movable movableObject) {
+
      }
 
 

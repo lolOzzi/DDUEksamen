@@ -16,11 +16,14 @@ class Movable {
   ArrayList<Liquid> liquidList;
   float g;
 
-  Movable()
+  Ground ground;
+
+  Movable( ArrayList<Liquid> liquidList, float g, Ground ground)
   {
     size = new PVector(48, 60);
     location = new PVector(random(0, width-size.x), random(100, 200));
     //location = new PVector(50, liquidList.get(0).loc.y - size.y / 2);
+    //location = new PVector(locX, locY);
     start = location.get();
     velocity = new PVector(5, 0);
     acceleration = new PVector(0, 0);
@@ -29,16 +32,40 @@ class Movable {
     areaX = size.x*size.x / pow(80, 2);
     areaY = size.y*size.x / pow(80, 2);
     volume =  size.x * size.x *size.y / pow(80, 3);
-    println(currLevel);
+    this.liquidList = liquidList;
+    this.g = g;
+    this.ground = ground;
 
   }
+  Movable(float locX, float locY, ArrayList<Liquid> liquidList, float g, Ground ground)
+  {
+    size = new PVector(48, 60);
+    //location = new PVector(random(0, width-size.x), random(100, 200));
+    //location = new PVector(50, liquidList.get(0).loc.y - size.y / 2);
+    location = new PVector(locX, locY);
+    start = location.get();
+    velocity = new PVector(0, 0);
+    acceleration = new PVector(0, 0);
+    mass = 250;
+    cw = 1.4f;
+    areaX = size.x*size.x / pow(80, 2);
+    areaY = size.y*size.x / pow(80, 2);
+    volume =  size.x * size.x *size.y / pow(80, 3);
+    //println(currLevel);
+    this.liquidList = liquidList;
+    this.g = g;
+    this.ground = ground;
 
+  }
   void update ()
   {
 
-    
+    /*
     liquidList = currLevel.liquidList;
     g = currLevel.g;
+    ground = currLevel.ground;
+    */
+
     onGround = isOnGround(ground);
     applyForce(gravity());
     /*if (isInside(liquid)) {
@@ -52,25 +79,24 @@ class Movable {
     for (int i = 0; i < currLevel.liquidList.size(); i++) {
       buoyancy(currLevel.liquidList.get(i));
       if (isInside(liquidList.get(i))) {
-        println("liquid" + i + " " + liquidList.get(i).density);
+        //println("liquid" + i + " " + liquidList.get(i).density);
         drag(liquidList.get(i));
       }
     }
 
     //velocity.add(acceleration);
 
-    println("Accel 1: x: " + acceleration.x + " y: " + acceleration.y);
+    //println("Accel 1: x: " + acceleration.x + " y: " + acceleration.y);
     if (onGround) {
       PVector temp_accel = acceleration.get();
       friction(ground.cf);
-      print("den er på jorden!?!?!?");
+      //print("den er på jorden!?!?!?");
 
       velocity.add(acceleration.sub(temp_accel));
     }
 
-
     if (onGround) {
-      location.y = height - ground.gHeight - size.y;
+      location.y = height - ground.size.y - size.y;
       if (velocity.y > 0)
       {
         velocity.y = 0;
@@ -100,10 +126,17 @@ class Movable {
     fill(255);
     text(i, location.x + size.x/2, location.y + size.y/2);
   }
+  void display()
+  {
+    fill(254, 111, 255);
+    rect(location.x, location.y, size.x, size.y);
+    fill(49, 51, 56);
+    rect(location.x +5, location.y +5, size.x-10, size.y-10);
+  }
 
   PVector gravity() {
     PVector grav = new PVector(0, currLevel.g * this.mass); //N
-    println("Gravity: x: " + grav.x + " y: " + grav.y);
+    //println("Gravity: x: " + grav.x + " y: " + grav.y);
     return grav;
   }
 
@@ -169,7 +202,7 @@ class Movable {
     PVector upthrust = new PVector(0, -1*l.density * vol*g);
     
     applyForce(upthrust);
-    println("Buoyancy: " + upthrust.mag());
+    //println("Buoyancy: " + upthrust.mag());
   }
 
   void friction(float cf) {
@@ -193,7 +226,7 @@ boolean isInside(Liquid l) {
   }
   
 boolean isOnGround(Ground ground) {
-  if (location.y + size.y >= height - ground.gHeight) {
+  if (location.y + size.y >= height - ground.size.y) {
     return true;
   } else
     return false;
@@ -210,14 +243,22 @@ boolean isOnGround(Ground ground) {
     if (isColliding(other)) {
 
       fill(0);
-      //text(detectCollisionSide(this, other), 1000, 100);
+      text(detectCollisionSide(this, other), 1000, 100);
       String side = detectCollisionSide(this, other);
       if (side == "bottom") {
         location.y = other.location.y - size.y;
-        velocity.y = velocity.y * -1 *0.5f;
+        //velocity.y = velocity.y * -1 *0.5f;
+        if (velocity.y > 0) {
+          velocity.y = 0;
+        }
+        if (other instanceof Button) {
+          other.collision(this);
+        }
+        //velocity.y = 0;
       } else if (side == "top") {
         location.y = other.location.y + other.size.y;
-        velocity.y = velocity.y * -1 *0.5f;
+        //velocity.y = velocity.y * -1 *0.5f;
+        velocity.y = 0;
       } else if (side == "left") {
         location.x = other.location.x + other.size.x;
         velocity.x = velocity.x * -1 *0.5f;

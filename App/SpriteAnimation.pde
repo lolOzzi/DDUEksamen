@@ -24,7 +24,7 @@ class SpriteAnimation {
   }
   
   // Draw the current sprite animation
-  void draw(float x, float y) {
-    currentSprite.draw(x, y);
+  void display(float x, float y) {
+    currentSprite.display(x, y);
   }
 }

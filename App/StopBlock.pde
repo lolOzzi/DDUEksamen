@@ -1,9 +1,10 @@
 class StopBlock {
   PVector location, size;
+  boolean active = true;
 
-  StopBlock(PVector location, PVector size) {
-    this.location = location;
-    this.size = size;
+  StopBlock(float x, float y, float w, float h) {
+    location = new PVector(x, y);
+    size = new PVector(w, h);
   }
   
   StopBlock() {

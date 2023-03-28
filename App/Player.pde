@@ -2,11 +2,15 @@ class Player extends Movable {
   PVector speed;
   float jump;
   boolean hitBlock = false;
+  ArrayList<StopBlock> blockArr;
+  StopBlock endBlock;
 
-  Player() {
+  Player(ArrayList<Liquid> liquidList, float g, Ground ground ) {
+    super(liquidList, g, ground);
+    acceleration = new PVector(1, 0);
     speed = new PVector(1, 0);
     mass = 2f;
-    location = new PVector(50, 100);
+    location = new PVector(50, ground.location.y + size.y);
     jump =  44.4;
   }
 
@@ -15,6 +19,7 @@ class Player extends Movable {
     hitBlock = inBlocks();
     atEnd();
     if (onGround == true && hitBlock == false) {
+      speed.add(acceleration);
       location.add(speed);
     }
     update();
@@ -29,15 +34,15 @@ class Player extends Movable {
       if (key == ' ' && onGround == true) {
         onGround = false;
         jump();
-        print("Hello");
       }
     }
   }
 
   boolean inBlocks() {
+    blockArr = currLevel.blockArr;
     for (StopBlock block : blockArr) {
-      if(block.location.x < location.x && location.x < block.location.x + block.size.x){
-        print("I AM INSIDE");
+      if(block.location.x < location.x && location.x < block.location.x + block.size.x && block.active){
+        //print("I AM INSIDE");
         return true;
       }
     }
@@ -45,6 +50,7 @@ class Player extends Movable {
   }
   
   void atEnd(){
+    endBlock = currLevel.endBlock;
     if(endBlock.location.x < location.x && location.x < endBlock.location.x + endBlock.size.x){
       println("I AM AT THE END, CONGRATULATIONS");
     }

@@ -1,56 +1,57 @@
 class Level1 extends Level {
   ArrayList<Movable> arr = new ArrayList<Movable>();
+
   int amount = 10;
   color liquid_color = color(0, 0, 255);
   color air_color = color(255, 255, 255);
   int count = 0;
   float g = 9.82;
 
-  Liquid liquid;
   Liquid air;
+  Player player;
+  Ground ground;
+
+  Button button;
+  StaticObject buttonPlatform = new StaticObject(250, 475, 200, 75);
+  Movable weight;
 
   public Level1() {
-    liquidList = super.getLiquidList();
-    liquid = new Liquid(0, height/3, width, height/2, 1000, liquid_color);
-    air = new Liquid(0, 0, width, height/3, 1.204, air_color );
-    
-    liquidList.add(air);
-    liquidList.add(liquid);
-
-    println(this.liquidList.size());
-    
-    for (int i = 0; i < amount; i++) {
-      arr.add(new Movable());
-    }
+      air = new Liquid(0, 0, width, height/3, 1.204, air_color );
+      liquidList.add(air);
+      ground = new Ground();
+      weight = new Movable(280, 300, liquidList, g, ground);
+      button = new Button(275, 475-40, 20, 30);
+      staticObjectList.add(ground);
+      staticObjectList.add(buttonPlatform);
+      staticObjectList.add(button);
+      movableList.add(weight);
+      player = new Player(liquidList, g, ground);
+      blockArr.add(new StopBlock(400, ground.location.y - 70, 70, 70));
+      blockArr.add(new StopBlock(600, ground.location.y - 70, 70, 70));
+      endBlock = new StopBlock(1000, ground.location.y - 70, 70, 70);
   }
 
   public void update() {
     count++;
     fill(255);
-    liquid.display();
-    air.display();
     ground.display();
-
-    spriteAnimation.setSprite("walk");
-    spriteAnimation.draw(0, 0);
-    spriteAnimation.draw(0, height - ground.gHeight - 17*8);
-    spriteAnimation.update();
-
-    //StaticObject amogus = new StaticObject(0, 0, 100, 100, imgs.get(0));
-    //StaticObject box = new StaticObject(0, 0, 100, 100);
-    //box.display();
-    
-    staticObjectList.add(new StaticObject(width / 2 - 300, height / 3 - 100, 300, 100));
-    staticObjectList.get(0).display();
-
-    fill(49, 51, 56);
-
-    for (int i = 0; i < amount; i++) {
-      Movable p = arr.get(i);
-      p.update();
-      p.checkEdges();
-      p.display(i);
-    }
     fill(255);
+    player.moveUpdate();
+    fill(0, 255, 0);
+    player.display();
+    endBlock.display(); 
+    for (StopBlock block : blockArr){
+      block.display();
+    }
+
+    //Puzzle 1
+    buttonPlatform.display();
+    button.display();
+    weight.display();
+    weight.update();
+    if (button.pressed) {
+      blockArr.get(0).active = false;
+    }
   }
+
 }
