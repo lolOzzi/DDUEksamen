@@ -16,8 +16,8 @@ public void setup() {
   noSmooth();
   frameRate(60);
   gameState = new GameState();
-  //currLevel = new Level1();
-    currLevel = new Level0();
+  currLevel = new Level1();
+  //currLevel = new Level0();
   backgroundImgs = helper.loadImages( "/sprites/game/env/background/");
   groundImgs = helper.loadImages( "/sprites/game/env/ground/");
   platformImgs = helper.loadImages( "/sprites/game/env/platform/");
