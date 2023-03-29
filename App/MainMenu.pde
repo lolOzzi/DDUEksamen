@@ -25,7 +25,7 @@ class MainMenu {
   
   void playButton(){
     if (mouseInBox() && mousePressed){
-      gameState.scene = 1;
+      gameState.scene = '1';
     }
   }
   

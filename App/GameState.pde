@@ -13,10 +13,10 @@ class GameState {
     case '1':
       currLevel.update();
       break;
-     case '2':
-       mainMenu.display();
-       mainMenu.update();
-       break;
+    case '2':
+      mainMenu.display();
+      mainMenu.update();
+      break;
     }
   }
 }
