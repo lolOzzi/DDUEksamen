@@ -3,7 +3,7 @@ class GameState {
   char scene;
   //Constructer sets the default gamestate
   public GameState() {
-    scene = '1';
+    scene = '2';
   }
 
   public void update() {
@@ -13,6 +13,10 @@ class GameState {
     case '1':
       currLevel.update();
       break;
+     case '2':
+       mainMenu.display();
+       mainMenu.update();
+       break;
     }
   }
 }

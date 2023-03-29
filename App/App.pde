@@ -9,6 +9,7 @@ SpriteAnimation spriteAnimation;
 GameState gameState;
 Level1 l1;
 Level currLevel;
+MainMenu mainMenu;
 
 public void setup() {
   //size(960, 540);
@@ -17,6 +18,7 @@ public void setup() {
   frameRate(60);
   gameState = new GameState();
   currLevel = new Level1();
+  mainMenu = new MainMenu();
   //currLevel = new Level0();
   backgroundImgs = helper.loadImages( "/sprites/game/env/background/");
   groundImgs = helper.loadImages( "/sprites/game/env/ground/");

@@ -54,7 +54,7 @@ class Level1 extends Level {
   }
 
   public void update() {
-    //background(255);
+    background(255);
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         println("value: " + numInput.intValue);
@@ -62,7 +62,7 @@ class Level1 extends Level {
         weight2.setMass(numInput2.intValue);
         first = false;
       }
-        background(backgroundImgs.get(0));
+        //background(backgroundImgs.get(0));
       count++;
       fill(255);
       ground.display();
