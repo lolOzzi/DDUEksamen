@@ -45,6 +45,7 @@ class Player extends Movable { //<>//
   void playerAnim() {
     if (velocity.x != 0) {
       plAnim.display(location.x, location.y);
+      plAnim.update();
       println("I AM HERE " + velocity.x);
     } else {
       image(sprite, location.x, location.y);

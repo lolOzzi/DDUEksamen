@@ -76,6 +76,7 @@ class Level1 extends Level {
       for (StopBlock block : blockArr) {
         block.display();
       }
+      
       //Puzzle 1
       buttonPlatform.display();
       button.display();
