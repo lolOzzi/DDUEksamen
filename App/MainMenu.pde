@@ -9,6 +9,7 @@ class MainMenu {
     sprite = loadImage("sprites/mainmenu/playbutton.png");
     titleSprite = loadImage("sprites/mainmenu/gametitle1.png");
     backgroundSprite = loadImage("sprites/game/env/background/background.png");
+    
   }
 
   void display() {

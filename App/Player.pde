@@ -1,10 +1,12 @@
-class Player extends Movable {
+class Player extends Movable { //<>//
   PVector speed;
   float jump;
   boolean hitBlock = false;
   boolean atEnd = false;
   ArrayList<StopBlock> blockArr;
   StopBlock endBlock;
+  PImage sprite, sprite1;
+  SpriteAnimation plAnim;
 
   Player(ArrayList<Liquid> liquidList, float g, Ground ground ) {
     super(liquidList, g, ground);
@@ -13,6 +15,12 @@ class Player extends Movable {
     mass = 2f;
     location = new PVector(50, ground.location.y + size.y);
     jump =  44.4;
+    size = new PVector(96, 136);
+    plAnim = new SpriteAnimation();
+    sprite = loadImage("sprites/game/player/movement/jump1.png");
+    sprite1 = loadImage("sprites/game/player/movement/walk.png");
+    plAnim.addSprite("walk", sprite1, 1, 4, 4);
+    plAnim.setSprite("walk");
   }
 
   void moveUpdate() {
@@ -22,7 +30,7 @@ class Player extends Movable {
     if (onGround == true && hitBlock == false) {
       speed.add(acceleration);
       location.add(speed);
-    }  
+    }
     update();
     if (hitBlock) {
       velocity.x = 0;
@@ -31,14 +39,24 @@ class Player extends Movable {
   }
 
   void display() {
-    rect(location.x, location.y, size.x, size.y);
+    playerAnim();
+  }
+
+  void playerAnim() {
+    if (velocity.x != 0) {
+      plAnim.display(location.x, location.y);
+      println("I AM HERE " + velocity.x);
+    } else {
+      image(sprite, location.x, location.y);
+      println("I AM IN ELSE " + velocity.x);
+    }
   }
 
   void keyCheck() {
     if (keyPressed == true) {
       if (key == ' ' && onGround == true) {
         onGround = false;
-        jump();
+        jump(new PVector(0, -jump));
       }
     }
   }
@@ -46,22 +64,22 @@ class Player extends Movable {
   boolean inBlocks() {
     blockArr = currLevel.blockArr;
     for (StopBlock block : blockArr) {
-      if(block.location.x < location.x && location.x < block.location.x + block.size.x && block.active){
+      if (block.location.x < location.x && location.x < block.location.x + block.size.x && block.active) {
         //print("I AM INSIDE");
         return true;
       }
     }
     return false;
   }
-  
-  void atEnd(){
+
+  void atEnd() {
     endBlock = currLevel.endBlock;
-    if(endBlock.location.x < location.x && location.x < endBlock.location.x + endBlock.size.x){
+    if (endBlock.location.x < location.x && location.x < endBlock.location.x + endBlock.size.x) {
       atEnd = true;
     }
   }
 
-  void jump(){
-    applyForce(new PVector(0, -jump));
+  void jump(PVector force) {
+    applyForce(new PVector(force.x, force.y));
   }
 }

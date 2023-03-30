@@ -10,10 +10,12 @@ GameState gameState;
 Level1 l1;
 Level currLevel;
 MainMenu mainMenu;
+Spring spring;
+Player player;
 
 public void setup() {
   //size(960, 540);
-  fullScreen(P2D, 2);
+  fullScreen(P2D);
   noSmooth();
   frameRate(60);
   gameState = new GameState();

@@ -1,9 +1,11 @@
 class Platform extends StaticObject {
     int length;
+    String text = "";
 
-    Platform(int x, int y, int length) {
+    Platform(int x, int y, int length, String text) {
         super(x, y, 64*2 + length*64, 64);
         this.length = length;
+        this.text = text;
     }
 
     void display() {
@@ -37,6 +39,9 @@ class Platform extends StaticObject {
         vertex(0, 64, 0, 1);
         endShape();
         popMatrix();
+        
+        textSize(42);        
+        text(text, location.x + size.x/5, location.y + size.y/2);
 
     }
 }
