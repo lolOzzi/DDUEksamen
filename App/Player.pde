@@ -19,7 +19,7 @@ class Player extends Movable { //<>//
     plAnim = new SpriteAnimation();
     sprite = loadImage("sprites/game/player/movement/jump1.png");
     sprite1 = loadImage("sprites/game/player/movement/walk.png");
-    plAnim.addSprite("walk", sprite1, 1, 4, 4);
+    plAnim.addSprite("walk", sprite1, 1, 4, 3);
     plAnim.setSprite("walk");
   }
 
