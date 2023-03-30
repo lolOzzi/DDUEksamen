@@ -34,9 +34,9 @@ class Level1 extends Level {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
     ground = new Ground();
-    weight = new Movable(293, 300, liquidList, g, ground);
+    weight = new Movable(293, 370, liquidList, g, ground);
     button = new Button(275, 475-40, 20, 50);
-    weight2 = new Movable(293 + spacing, 300, liquidList, g, ground);
+    weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
     button2 = new Button(275 + spacing, 475-40, 20, 50);
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
