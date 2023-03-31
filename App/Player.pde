@@ -5,7 +5,7 @@ class Player extends Movable { //<>//
   boolean atEnd = false;
   ArrayList<StopBlock> blockArr;
   StopBlock endBlock;
-  PImage sprite, sprite1;
+  Sprite jumpSprite, walkSprite;
   SpriteAnimation plAnim;
 
   Player(ArrayList<Liquid> liquidList, float g, Ground ground ) {
@@ -17,10 +17,9 @@ class Player extends Movable { //<>//
     jump =  44.4;
     size = new PVector(96, 136);
     plAnim = new SpriteAnimation();
-    sprite = loadImage("sprites/game/player/movement/jump1.png");
-    sprite1 = loadImage("sprites/game/player/movement/walk.png");
-    plAnim.addSprite("walk", sprite1, 1, 4, 3);
-    plAnim.setSprite("walk");
+    jumpSprite = new Sprite("logo", loadImage("sprites/game/player/movement/jump.png"), 1, 2, 0);
+    walkSprite = new Sprite("walk", loadImage("sprites/game/player/movement/walk.png"), 1, 4, 9);
+
   }
 
   void moveUpdate() {
@@ -44,11 +43,11 @@ class Player extends Movable { //<>//
 
   void playerAnim() {
     if (velocity.x != 0) {
-      plAnim.display(location.x, location.y);
-      plAnim.update();
+      walkSprite.display(location.x, location.y);
+      walkSprite.update();
       println("I AM HERE " + velocity.x);
     } else {
-      image(sprite, location.x, location.y);
+      jumpSprite.display(location.x, location.y);
       println("I AM IN ELSE " + velocity.x);
     }
   }
