@@ -22,6 +22,7 @@ class Level1 extends Level {
   Button button2;
   Platform buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, "20N - 50N");
   Movable weight2;
+  Weight wTest;
 
   InputBox numInput;
   InputBox numInput2;
@@ -38,6 +39,7 @@ class Level1 extends Level {
     button = new Button(275, 475-40, 20, 50);
     weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
     button2 = new Button(275 + spacing, 475-40, 20, 50);
+    wTest = new Weight(liquidList, g, ground, 250);
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
     staticObjectList.add(buttonPlatform2);
@@ -80,8 +82,10 @@ class Level1 extends Level {
       //Puzzle 1
       buttonPlatform.display();
       button.display();
-      weight.display();
-      weight.update();
+      //weight.display();
+      //weight.update();
+      wTest.display();
+      wTest.update();
       //println("Weight: " + weight.mass + "loc: " + weight.location.x + ", " + weight.location.y);
       if (button.pressed) {
         blockArr.get(0).active = false;
