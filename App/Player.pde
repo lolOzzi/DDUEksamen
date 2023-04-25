@@ -1,7 +1,8 @@
 class Player extends Movable { //<>//
-  PVector speed;
+  PVector speed, ogLoc;
   float jump;
   boolean hitBlock = false;
+  float hitCount;
   boolean atEnd = false;
   ArrayList<StopBlock> blockArr;
   StopBlock endBlock;
@@ -14,12 +15,13 @@ class Player extends Movable { //<>//
     speed = new PVector(1.75, 0);
     mass = 2f;
     location = new PVector(50, ground.location.y + size.y);
+    ogLoc = new PVector(location.x, location.y);
     jump =  44.4;
     size = new PVector(96, 136);
     plAnim = new SpriteAnimation();
     jumpSprite = new Sprite("logo", loadImage("sprites/game/player/movement/jump.png"), 1, 2, 0);
     walkSprite = new Sprite("walk", loadImage("sprites/game/player/movement/walk.png"), 1, 4, 9);
-
+    hitCount = 0;
   }
 
   void moveUpdate() {
@@ -34,6 +36,7 @@ class Player extends Movable { //<>//
     if (hitBlock) {
       velocity.x = 0;
       velocity.y = 0;
+      hitCount += 1;
     }
   }
 

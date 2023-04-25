@@ -42,8 +42,8 @@ class Platform extends StaticObject {
     
     
     fill(0);
-    PFont font40 = createFont("Georgia", 40);
-    textFont(font40);
-    text(text, location.x + size.x/8, location.y + size.y/1.45);
+    PFont font35 = createFont("Georgia", 35);
+    textFont(font35);
+    text(text, location.x + size.x/15, location.y + size.y/1.5);
   }
 }

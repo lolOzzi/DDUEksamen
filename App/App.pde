@@ -19,7 +19,7 @@ public void setup() {
   noSmooth();
   frameRate(60);
   gameState = new GameState();
-  currLevel = new Level1();
+  currLevel = new Level2();
   mainMenu = new MainMenu();
   //currLevel = new Level0();
   backgroundImgs = helper.loadImages( "/sprites/game/env/background/");

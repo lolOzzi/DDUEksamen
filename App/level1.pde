@@ -11,16 +11,16 @@ class Level1 extends Level {
   UIButton start = new UIButton(100, 100, 100, 100, "Start");
 
   Liquid air;
-  
+
   Ground ground;
 
   int spacing = 500;
 
   Button button;
-  Platform buttonPlatform = new Platform(250, 475 - 8, 2, "20N - 50N");
+  Platform buttonPlatform;
   Movable weight;
   Button button2;
-  Platform buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, "20N - 50N");
+  Platform buttonPlatform2;
   Movable weight2;
 
   InputBox numInput;
@@ -34,10 +34,12 @@ class Level1 extends Level {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
     ground = new Ground();
-    weight = new Movable(293, 370, liquidList, g, ground);
+    weight = new Movable(293, 310, liquidList, g, ground);
     button = new Button(275, 475-40, 20, 50);
     weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
     button2 = new Button(275 + spacing, 475-40, 20, 50);
+    buttonPlatform = new Platform(250, 475 - 8, 2, button.minForce + "N - " + button.maxForce + "N");
+    buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, button2.minForce + "N - " + button2.maxForce + "N");
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
     staticObjectList.add(buttonPlatform2);
@@ -76,7 +78,7 @@ class Level1 extends Level {
       for (StopBlock block : blockArr) {
         block.display();
       }
-      
+
       //Puzzle 1
       buttonPlatform.display();
       button.display();
@@ -121,9 +123,6 @@ class Level1 extends Level {
       text("You Won!", width/2, height/2);
       textAlign(BASELINE);
     }
-    
-    //spring.display();
-    //spring.update();
   }
 
 
