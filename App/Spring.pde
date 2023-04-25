@@ -2,6 +2,8 @@ class Spring {
 
   PVector location, size, force;
   Sprite sAnim;
+  float fLength;
+  float angle;
 
 
   Spring() {
@@ -10,6 +12,8 @@ class Spring {
     PImage walkSpriteSheet = loadImage("sprites/game/spring/spring.png");
     sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);
     force = new PVector(20, -40);
+    fLength = 1;
+    angle = 40;
   }
 
   void display() {
@@ -19,6 +23,7 @@ class Spring {
   
   void update(){
     overSpring();
+    force = new PVector(fLength * radians(sin(angle)), fLength * radians(cos(angle)));
   }
   
 

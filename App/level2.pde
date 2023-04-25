@@ -7,6 +7,7 @@ class Level2 extends Level {
   int count = 0;
   float g = 9.82;
   int counter = 1;
+  Spike spike;
 
   UIButton start = new UIButton(100, 100, 100, 100, "Start");
 
@@ -28,6 +29,7 @@ class Level2 extends Level {
     //input = new InputBox();
     spring = new Spring();
     numInput = new InputBox(new PVector(400, spring.location.y - 50), new PVector(150, 50), 1);
+    spike = new Spike();
   }
 
   public void update() {
@@ -44,8 +46,11 @@ class Level2 extends Level {
       ground.display();
       fill(255);
       player.moveUpdate();
+      spring.fLength = numInput.intValue;
       spring.update();
       spring.display();
+      spike.update();
+      spike.display();
       fill(0, 255, 0);
       player.display();
       endBlock.display();
