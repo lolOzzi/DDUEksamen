@@ -7,7 +7,7 @@ class Spring {
 
 
   Spring() {
-    location = new PVector(230, 690);
+    location = new PVector(230, 770);
     size = new PVector(88, 120);
     PImage walkSpriteSheet = loadImage("sprites/game/spring/spring.png");
     sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);

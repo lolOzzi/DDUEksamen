@@ -8,7 +8,7 @@ class Spike {
   Spike() {
     size = new PVector(56, 88);
     slope = size.y / (size.x / 2);
-    location = new PVector(650, 720);
+    location = new PVector(650, 800);
     sprite = loadImage("sprites/game/env/spikes/spike0.png");
   }
 

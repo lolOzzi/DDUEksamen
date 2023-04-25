@@ -6,6 +6,7 @@ class Level1 extends Level {
   color air_color = color(255, 255, 255);
   int count = 0;
   float g = 9.82;
+  float wCount = 0;
   int counter = 1;
 
   UIButton start = new UIButton(100, 100, 100, 100, "Start");
@@ -25,6 +26,8 @@ class Level1 extends Level {
 
   InputBox numInput;
   InputBox numInput2;
+
+  UIButton wBut;
 
   boolean first = true;
   boolean won = false;
@@ -54,6 +57,7 @@ class Level1 extends Level {
     numInput = new InputBox(new PVector(400, weight.location.y - 50), new PVector(150, 50), 1);
     numInput2 = new InputBox(new PVector(400 + spacing, weight2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
+    wBut = new UIButton(200, 200, 200, 200, "Next Level");
   }
 
   public void update() {
@@ -72,6 +76,7 @@ class Level1 extends Level {
       ground.display();
       fill(255);
       player.moveUpdate();
+      nextLevel();
       fill(0, 255, 0);
       player.display();
       endBlock.display();
@@ -122,6 +127,7 @@ class Level1 extends Level {
       textFont(font50);
       text("You Won!", width/2, height/2);
       textAlign(BASELINE);
+      wBut.display();
     }
   }
 
@@ -132,5 +138,20 @@ class Level1 extends Level {
       startGame = true;
       println("startGame");
     }
+  }
+
+  void nextLevel() {
+    if (mouseInBox() && mousePressed) {
+      currLevel = new Level2();
+      
+    }
+  }
+  boolean mouseInBox() {
+    if (mouseX >= wBut.location.x && mouseX <= wBut.location.x + wBut.size.x) {
+      if (mouseX >= wBut.location.y && mouseY <= wBut.location.y + wBut.size.y) {
+        return true;
+      }
+    }
+    return false;
   }
 }
