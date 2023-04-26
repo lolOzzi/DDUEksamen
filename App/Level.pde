@@ -10,6 +10,7 @@ class Level {
   color air_color = color(255, 255, 255);
   float g = 9.82;
   int count = 0; 
+  WinScreen wScreen;
   
     UIButton start = new UIButton(100, 100, 100, 100, "Start");
   boolean startGame;

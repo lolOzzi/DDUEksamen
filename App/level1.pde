@@ -61,6 +61,7 @@ class Level1 extends Level {
     numInput2 = new InputBox(new PVector(400 + spacing, wTest2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
     wBut = new UIButton(width/2 - 75, height/2 + 100, 150, 100, "Next Level");
+    wScreen = new WinScreen();
   }
 
   public void update() {
@@ -118,6 +119,7 @@ class Level1 extends Level {
     numInput2.update();
     counter++;
     if (won) {
+      /*
       fill(0, 150);
 
       rect(0, 0, width, height);
@@ -130,6 +132,8 @@ class Level1 extends Level {
       text("You Won!", width/2, height/2);
       textAlign(BASELINE);
       wBut.display();
+      */
+      wScreen.display();
     }
   }
 
