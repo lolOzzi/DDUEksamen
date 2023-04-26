@@ -60,7 +60,7 @@ class Level1 extends Level {
     numInput = new InputBox(new PVector(400, wTest.location.y - 50), new PVector(150, 50), 1);
     numInput2 = new InputBox(new PVector(400 + spacing, wTest2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
-    wBut = new UIButton(width/2 - 100, height/2 + 100, 200, 200, "Next Level");
+    wBut = new UIButton(width/2 - 75, height/2 + 100, 150, 100, "Next Level");
   }
 
   public void update() {
