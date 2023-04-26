@@ -23,6 +23,7 @@ class Level1 extends Level {
   Platform buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, "20N - 50N");
   Movable weight2;
   Weight wTest;
+  Weight wTest2;
 
   InputBox numInput;
   InputBox numInput2;
@@ -35,11 +36,12 @@ class Level1 extends Level {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
     ground = new Ground();
-    weight = new Movable(293, 370, liquidList, g, ground);
+    //weight = new Movable(293, 370, liquidList, g, ground);
+    wTest = new Weight(new PVector(250, 200), liquidList, g, ground);
     button = new Button(275, 475-40, 20, 50);
-    weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
+    //weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
+    wTest2 = new Weight(new PVector( (250 + spacing), 200), liquidList, g, ground);
     button2 = new Button(275 + spacing, 475-40, 20, 50);
-    wTest = new Weight(liquidList, g, ground, 250);
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
     staticObjectList.add(buttonPlatform2);
@@ -51,8 +53,8 @@ class Level1 extends Level {
     blockArr.add(new StopBlock(buttonPlatform2.location.x + buttonPlatform2.size.x / 2, ground.location.y - 70, 70, 70));
     endBlock = new StopBlock(1500, ground.location.y - 70, 70, 70);
     //input = new InputBox();
-    numInput = new InputBox(new PVector(400, weight.location.y - 50), new PVector(150, 50), 1);
-    numInput2 = new InputBox(new PVector(400 + spacing, weight2.location.y - 50), new PVector(150, 50), 1);
+    numInput = new InputBox(new PVector(400, wTest.location.y - 50), new PVector(150, 50), 1);
+    numInput2 = new InputBox(new PVector(400 + spacing, wTest2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
   }
 
@@ -61,8 +63,8 @@ class Level1 extends Level {
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         println("value: " + numInput.intValue);
-        weight.setMass(numInput.intValue);
-        weight2.setMass(numInput2.intValue);
+        wTest.setMass(numInput.intValue);
+        wTest2.setMass(numInput2.intValue);
         first = false;
       }
       image(backgroundImgs.get(0), 0, 0);
@@ -94,8 +96,10 @@ class Level1 extends Level {
       //Puzzle 2
       buttonPlatform2.display();
       button2.display();
-      weight2.display();
-      weight2.update();
+      //weight2.display();
+      //weight2.update();
+      wTest2.update();
+      wTest2.display();
       if (button2.pressed) {
         blockArr.get(1).active = false;
       }

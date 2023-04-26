@@ -3,7 +3,7 @@ class Weight extends Movable {
   float val;
   Sprite sprite;
 
-  Weight(ArrayList<Liquid> liquidList, float g, Ground ground, float Value) {
+  Weight(ArrayList<Liquid> liquidList, float g, Ground ground) {
     super(liquidList, g, ground);
     this.location = new PVector(100, 310);
     this.size = new PVector(136, 144);
@@ -12,8 +12,17 @@ class Weight extends Movable {
     mass = 250;
     sprite = new Sprite("logo", loadImage("sprites/game/env/weight/weight.png"), 1, 1, 0);
   }
-  
-  void display(){
+  Weight(PVector location, ArrayList<Liquid> liquidList, float g, Ground ground) {
+    super(liquidList, g, ground);
+    this.location = location;
+    this.size = new PVector(136, 144);
+    start = location.get();
+    velocity = new PVector(0, 0);
+    mass = 250;
+    sprite = new Sprite("logo", loadImage("sprites/game/env/weight/weight.png"), 1, 1, 0);
+  }
+
+  void display() {
     sprite.display(location.x, location.y);
   }
 }
