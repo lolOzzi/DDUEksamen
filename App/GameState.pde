@@ -27,11 +27,7 @@ class GameState {
   }
 
   void Fail() {
-    player.location = new PVector(player.ogLoc.x, player.ogLoc.y);
-    println(player.ogLoc);
-    println(player.location);
-    player.moveUpdate();
-    player.display();
+    currLevel = new Level1();
     player.hitCount = 0;
   }
 }
