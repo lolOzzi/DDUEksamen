@@ -49,7 +49,6 @@ void draw() {
 void mouseClicked() {
     if (mouseButton == LEFT && currLevel.start.isClicked()) {
       currLevel.startGame = true;
-      println("startGame");
     }
   }
 void keyPressed() {

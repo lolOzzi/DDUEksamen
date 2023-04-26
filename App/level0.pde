@@ -17,8 +17,6 @@ class Level0 extends Level {
     ground = new Ground();
     liquidList.add(air);
     liquidList.add(liquid);
-
-    println(this.liquidList.size());
     
     for (int i = 0; i < amount; i++) {
       arr.add(new Movable(liquidList, g, ground));

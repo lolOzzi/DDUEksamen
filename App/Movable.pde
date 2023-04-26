@@ -51,7 +51,6 @@ class Movable {
     areaX = size.x*size.x / pow(80, 2);
     areaY = size.y*size.x / pow(80, 2);
     volume =  size.x * size.x *size.y / pow(80, 3);
-    //println(currLevel);
     this.liquidList = liquidList;
     this.g = g;
     this.ground = ground;
@@ -79,18 +78,15 @@ class Movable {
     for (int i = 0; i < currLevel.liquidList.size(); i++) {
       buoyancy(currLevel.liquidList.get(i));
       if (isInside(liquidList.get(i))) {
-        //println("liquid" + i + " " + liquidList.get(i).density);
         drag(liquidList.get(i));
       }
     }
 
     //velocity.add(acceleration);
 
-    //println("Accel 1: x: " + acceleration.x + " y: " + acceleration.y);
     if (onGround) {
       PVector temp_accel = acceleration.get();
       friction(ground.cf);
-      //print("den er på jorden!?!?!?");
 
       velocity.add(acceleration.sub(temp_accel));
     }
@@ -109,9 +105,6 @@ class Movable {
     velocity.add(acceleration);
     location.add(velocity);
     acceleration.mult(0);
-
-
-    //println("Speed: x: " + velocity.x*frameRate / 80 + " y: " + velocity.y*frameRate / 80);
     count++;
 
 
@@ -136,7 +129,6 @@ class Movable {
 
   PVector gravity() {
     PVector grav = new PVector(0, currLevel.g * this.mass); //N
-    //println("Gravity: x: " + grav.x + " y: " + grav.y);
     return grav;
   }
 
@@ -189,7 +181,6 @@ class Movable {
     // Apply the force.
     applyForce(drag);
 
-    //println("Drag: x: " + drag.x + " y: " + drag.y);
   }
 
   void buoyancy(Liquid l) {
@@ -202,7 +193,6 @@ class Movable {
     PVector upthrust = new PVector(0, -1*l.density * vol*g);
     
     applyForce(upthrust);
-    //println("Buoyancy: " + upthrust.mag());
   }
 
   void friction(float cf) {
@@ -210,8 +200,6 @@ class Movable {
       PVector vel = velocity.get();
       PVector temp = vel.div(vel.mag());
       PVector friction = temp.mult(-(acceleration.y / 80 * frameRate*frameRate) * mass*cf);
-      //println("Friction: x: " + friction.x + " y: " + friction.y);
-      //println("Accel: x: " + acceleration.x + " y: " + acceleration.y);
       applyForce(friction);
     }
   }

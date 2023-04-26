@@ -33,4 +33,7 @@ class Level {
   public float getGravity() {
     return g;
   }
+  Level reset(){
+    return new Level();
+  }
 }

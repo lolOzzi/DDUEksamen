@@ -45,12 +45,11 @@ class InputBox {
 
   void update() {
     writing();
-    //println(value);
   }
 
   boolean mouseInBox() {
     if (mouseX >= location.x && mouseX <= location.x + size.x) {
-      if (mouseX >= location.y && mouseY <= location.y + size.y) {
+      if (mouseY >= location.y && mouseY <= location.y + size.y) {
         return true;
       }
     }
@@ -79,7 +78,6 @@ class InputBox {
         if (key != BACKSPACE) {
           value.add(key);
           oneChar = false;
-          println("TESTING FOR TYPE: " + type + " TESTING FOR KEY: " + key);
           combValue = getValueString(value);
           try {
             if ((key == '.' && value.contains('.') == false) || key != '.') {
@@ -87,7 +85,6 @@ class InputBox {
                 for (int i = 0; i < combValue.length(); i++) {
                 }
                 intValue = Float.parseFloat(combValue);
-                println("HELLO " + intValue);
               }
             }
           }

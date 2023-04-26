@@ -4,6 +4,7 @@ class Player extends Movable { //<>//
   boolean hitBlock = false;
   float hitCount;
   boolean atEnd = false;
+  boolean died = false;
   ArrayList<StopBlock> blockArr;
   StopBlock endBlock;
   Sprite jumpSprite, walkSprite;
@@ -48,10 +49,8 @@ class Player extends Movable { //<>//
     if (velocity.x != 0) {
       walkSprite.display(location.x, location.y);
       walkSprite.update();
-      println("I AM HERE " + velocity.x);
     } else {
       jumpSprite.display(location.x, location.y);
-      println("I AM IN ELSE " + velocity.x);
     }
   }
 
@@ -68,7 +67,6 @@ class Player extends Movable { //<>//
     blockArr = currLevel.blockArr;
     for (StopBlock block : blockArr) {
       if (block.location.x < location.x && location.x < block.location.x + block.size.x && block.active) {
-        //print("I AM INSIDE");
         return true;
       }
     }
@@ -83,6 +81,8 @@ class Player extends Movable { //<>//
   }
 
   void jump(PVector force) {
+    print(force);
     applyForce(new PVector(force.x, force.y));
+    println(acceleration);
   }
 }

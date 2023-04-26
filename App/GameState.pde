@@ -12,11 +12,9 @@ class GameState {
       break;
     case '1':
       currLevel.update();
-      if (player.hitCount >= 100) {
+      if (player.hitCount >= 100 || player.died == true) {
         Fail();
         currLevel.startGame = false;
-      } else {
-        println(player.hitCount);
       }
       break;
     case '2':
@@ -27,7 +25,6 @@ class GameState {
   }
 
   void Fail() {
-    currLevel = new Level1();
-    player.hitCount = 0;
+    currLevel = currLevel.reset();
   }
 }

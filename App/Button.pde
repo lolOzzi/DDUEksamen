@@ -20,7 +20,6 @@ class Button extends StaticObject {
      }
 
      void collision(Movable other) {
-        println("mass: " + other.mass + " g: " + other.g );
         if (other.mass * other.g > minForce && other.mass * other.g < maxForce) {
         sprite.currentFrame = 1;
         other.location = new PVector(other.location.x, location.y - other.size.y + 8);

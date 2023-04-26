@@ -13,7 +13,16 @@ class Spring {
     sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);
     force = new PVector(20, -40);
     fLength = 1;
-    angle = 40;
+    angle = 75;
+  }
+    Spring(PVector location) {
+    this.location = location;
+    size = new PVector(88, 120);
+    PImage walkSpriteSheet = loadImage("sprites/game/spring/spring.png");
+    sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);
+    force = new PVector(20, -40);
+    fLength = 1;
+    angle = 75;
   }
 
   void display() {
@@ -22,16 +31,14 @@ class Spring {
   }
   
   void update(){
+    force = new PVector(fLength * cos(radians(angle)), -fLength * sin(radians(angle)));
     overSpring();
-    force = new PVector(fLength * radians(sin(angle)), fLength * radians(cos(angle)));
   }
   
 
   void overSpring() {
     if (location.x < player.location.x && player.location.x < location.x + size.x) {
-      println();
       if (location.y + size.y >= player.location.y + player.size.y && location.y <= player.location.y + player.size.y) {
-        println("INSIDE JUMP");
         player.jump(force);
       }
     }

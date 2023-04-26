@@ -67,7 +67,6 @@ class Level1 extends Level {
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
-        println("value: " + numInput.intValue);
         wTest.setMass(numInput.intValue);
         wTest2.setMass(numInput2.intValue);
         first = false;
@@ -92,7 +91,6 @@ class Level1 extends Level {
       button.display();
       wTest.display();
       wTest.update();
-      //println("Weight: " + weight.mass + "loc: " + weight.location.x + ", " + weight.location.y);
       if (button.pressed) {
         blockArr.get(0).active = false;
       }
@@ -113,6 +111,7 @@ class Level1 extends Level {
 
     //Start screen
     start.display();
+    
     numInput.display();
     numInput.update();
     numInput2.display();
@@ -136,10 +135,8 @@ class Level1 extends Level {
 
 
   void mouseClicked() {
-    println("mousePressed");
     if (mouseButton == LEFT && start.isClicked()) {
       startGame = true;
-      println("startGame");
     }
   }
 
@@ -155,5 +152,9 @@ class Level1 extends Level {
       }
     }
     return false;
+  }
+  
+  Level reset(){
+    return new Level1();
   }
 }

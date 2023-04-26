@@ -27,16 +27,15 @@ class Level2 extends Level {
     player = new Player(liquidList, g, ground);
     endBlock = new StopBlock(1500, ground.location.y - 70, 70, 70);
     //input = new InputBox();
-    spring = new Spring();
-    numInput = new InputBox(new PVector(400, spring.location.y - 50), new PVector(150, 50), 1);
-    spike = new Spike();
+    spring = new Spring(new PVector(230, 770));
+    numInput = new InputBox(new PVector(spring.location.x, spring.location.y - 50), new PVector(150, 50), 1);
+    spike = new Spike( new PVector(1030, 800));
   }
 
   public void update() {
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
-        println("value: " + numInput.intValue);
         first = false;
       }
       image(backgroundImgs.get(0), 0, 0);
@@ -62,8 +61,9 @@ class Level2 extends Level {
 
     //Start screen
     start.display();
-    numInput.display();
     numInput.update();
+    numInput.display();
+
     counter++;
     if (won) {
       fill(0, 150);
@@ -82,10 +82,11 @@ class Level2 extends Level {
 
 
   void mouseClicked() {
-    println("mousePressed");
     if (mouseButton == LEFT && start.isClicked()) {
       startGame = true;
-      println("startGame");
     }
+  }
+  Level reset() {
+    return new Level2();
   }
 }
