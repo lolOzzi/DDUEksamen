@@ -29,12 +29,20 @@ class Level1 extends Level {
 
   boolean first = true;
   boolean won = false;
+  boolean wonSetup = true;
 
   Door greenDoor;
   Door redDoor;
 
   int doorGroundOffset = -176 + 8;
   WinFlag winFlag;
+
+  int startTime;
+  int endTime;
+  int elapsedTime;
+  
+
+  PFont inputFont = createFont("./font/pixel.ttf", 16, false);
 
   public Level1() {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
@@ -44,9 +52,9 @@ class Level1 extends Level {
     button = new Button(275, 475-40, 20, 50, "green");
     //weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
     wTest2 = new Weight(new PVector( (275 + spacing), 200), liquidList, g, ground);
-    button2 = new Button(275 + spacing, 475-40, 20, 50, "red");
-    buttonPlatform = new Platform(250, 475 - 8, 2, button.minForce + "N - " + button.maxForce + "N");
-    buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, button2.minForce + "N - " + button2.maxForce + "N");
+    button2 = new Button(275 + spacing, 475-40, 100, 140, "red");
+    buttonPlatform = new Platform(250, 475 - 8, 2, (int) button.minForce + "N - " + (int) button.maxForce + "N");
+    buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, (int) button2.minForce + "N - " +  (int) button2.maxForce + "N");
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
     staticObjectList.add(buttonPlatform2);
@@ -72,9 +80,13 @@ class Level1 extends Level {
     spring = new Spring();
     wScreen = new WinScreen();
     hBar.inPlay = false;
+    
   }
 
   public void update() {
+    if (counter == 1) {
+      this.startTime = millis();
+    }
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
@@ -83,7 +95,6 @@ class Level1 extends Level {
         defaultTrack.stop();
         actionTrack.play();
         actionTrack.loop();
-        score++;
       }
       image(backgroundImgs.get(0), 0, 0);
       count++;
@@ -139,7 +150,16 @@ class Level1 extends Level {
 
     counter++;
     if (won) {
-      wScreen.score = 1/score;
+      if (wonSetup) {
+          this.endTime = millis();
+          this.elapsedTime = this.endTime - this.startTime;
+          wonSetup = false;
+      }
+      
+      wScreen.score = round(500 - elapsedTime/300);
+      if (wScreen.score < 100) {
+        wScreen.score = 100;
+      }
       wScreen.display();
     }
   }

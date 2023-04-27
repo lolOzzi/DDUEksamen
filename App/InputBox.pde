@@ -11,6 +11,9 @@ class InputBox {
   float intValue;
   ArrayList<Integer> num = new ArrayList<Integer>();
 
+  PFont inputFont = createFont("./font/pixel.ttf", 16, false);
+  String defaultString = "Type here";
+
   InputBox() {
     location = new PVector(100, 100);
     size = new PVector(150, 150);
@@ -18,12 +21,17 @@ class InputBox {
     combValue = "";
     type = 0;
     insNum();
+
   }
 
   InputBox(PVector location, PVector size, int type) {
+    this(location, size, type, "Type here");
+  }
+    InputBox(PVector location, PVector size, int type, String defaultString) {
     this.location = location;
     this.size = size;
     this.type = type;
+    this.defaultString = defaultString;
     oneChar = true;
     combValue = "";
     insNum();
@@ -36,11 +44,20 @@ class InputBox {
   }
 
   void display() {
-    fill(100, 100, 100);
-    rect(location.x, location.y, size.x, size.y);
+    fill(0);
+    rect(location.x - 3, location.y - 3, size.x + 6, size.y + 6);
     fill(255);
-    textSize(20);
-    text(combValue, location.x + 10, location.y + size.y/2);
+    rect(location.x, location.y, size.x, size.y);
+    fill(0);
+    textFont(inputFont);
+    textAlign(LEFT, CENTER);
+    if (combValue.length() > 0) {
+      text(combValue, location.x + 10, location.y + size.y/2);
+    } else {
+      text(defaultString, location.x + 10, location.y + size.y/2);
+    }
+    textAlign(BASELINE, BASELINE);
+    
   }
 
   void update() {
