@@ -13,7 +13,7 @@ class Spring {
     sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);
     force = new PVector(20, -40);
     fLength = 1;
-    angle = 75;
+    angle = 45;
   }
     Spring(PVector location) {
     this.location = location;
@@ -22,7 +22,7 @@ class Spring {
     sAnim = new Sprite("walk", walkSpriteSheet, 1, 3, 1);
     force = new PVector(20, -40);
     fLength = 1;
-    angle = 75;
+    angle = 45;
   }
 
   void display() {

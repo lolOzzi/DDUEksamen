@@ -82,7 +82,6 @@ class Level1 extends Level {
       ground.display();
       fill(255);
       player.moveUpdate();
-      nextLevel();
       fill(0, 255, 0);
       player.display();
       endBlock.display();
@@ -148,17 +147,8 @@ class Level1 extends Level {
   }
 
   void nextLevel() {
-    if (mouseInBox() && mousePressed) {
-      currLevel = new Level2();
-    }
-  }
-  boolean mouseInBox() {
-    if (mouseX >= wBut.location.x && mouseX <= wBut.location.x + wBut.size.x) {
-      if (mouseY >= wBut.location.y && mouseY <= wBut.location.y + wBut.size.y) {
-        return true;
-      }
-    }
-    return false;
+
+    currLevel = new Level2();
   }
   
   Level reset(){

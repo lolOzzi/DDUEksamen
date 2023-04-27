@@ -20,14 +20,16 @@ Player player;
 
 public void setup() {
   //size(960, 540);
-  fullScreen(P2D);
+  fullScreen(P2D, 2);
   noSmooth();
   frameRate(60);
   
     
   //music
   actionTrack = new SoundFile(this, "/music/action.wav");
+  actionTrack.amp(0.75);
   defaultTrack = new SoundFile(this, "/music/default.wav");
+  defaultTrack.amp(0.75);
   defaultTrack.play();
   defaultTrack.loop();
   
@@ -69,5 +71,8 @@ void mouseClicked() {
 void keyPressed() {
   if (key == 'r') {
     currLevel = new Level1();
-  } 
+  }
+  if (key == 't') {
+    currLevel = new Level2(); 
+  }
 }

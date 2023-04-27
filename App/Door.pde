@@ -1,0 +1,28 @@
+class Door extends StaticObject {
+    PVector location, size;
+     Sprite sprite;
+    boolean pressed = false;
+
+     //Basic in-game Button 
+     Button(int locX, int locY) {
+         super(locX, locY, 176, 40);
+         this.location = new PVector(locX, locY);
+         this.size = new PVector(176, 40);
+         sprite = new Sprite("pog", loadImage("sprites/game/button/button.png"), 1, 2, 0);
+     }
+     
+     void display() {
+        sprite.display(location.x, location.y);
+     }
+
+     void collision(Movable other) {
+        if (other.mass * other.g > minForce && other.mass * other.g < maxForce) {
+        sprite.currentFrame = 1;
+        other.location = new PVector(other.location.x, location.y - other.size.y + 8);
+        other.velocity = new PVector(0, 0);
+        pressed = true;
+        }
+
+     }
+      
+}
