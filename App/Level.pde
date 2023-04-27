@@ -19,6 +19,7 @@ class Level {
   Ground ground;
 
   public Level() {
+    staticObjectList = new ArrayList<StaticObject>();
     if (actionTrack.isPlaying()) {
       actionTrack.stop();
       defaultTrack.play();
@@ -44,6 +45,5 @@ class Level {
     return new Level();
   }
   void nextLevel() {
-    currLevel = new Level1();
   }
 }

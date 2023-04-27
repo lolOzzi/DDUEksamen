@@ -6,7 +6,9 @@ class Sprite {
   int frameCount;
   int frameWidth, frameHeight;
   int cooldown;
+  boolean loop = true;
   int waitTimer = 0;
+
   
   
   Sprite(String name, PImage spriteSheet, int rows, int cols) {
@@ -19,11 +21,17 @@ class Sprite {
   }
 
   Sprite(String name, PImage spriteSheet, int rows, int cols, float spriteRate, int cooldown) {
+    this(name, spriteSheet, rows, cols, spriteRate, cooldown, true);
+
+  }
+
+  Sprite(String name, PImage spriteSheet, int rows, int cols, float spriteRate, int cooldown, boolean loop) {
     this.name = name;
     this.spriteRate = spriteRate;
     this.currentFrame = 0;
     this.frameCount = 0;
     this.cooldown = cooldown;
+    this.loop = loop;
     
     //Calculate size of frame from cols and rows
     this.frameWidth = (int) (spriteSheet.width / cols);
@@ -46,7 +54,7 @@ class Sprite {
   // Update the current frame of the animation based on the frame rate
   
   void update() {
-    if (waitTimer < cooldown && (currentFrame+1) % frames.length == 1) {
+    if ((waitTimer < cooldown && (currentFrame+1) % frames.length == 1) || !loop) {
       waitTimer++;
     } else {
       if (waitTimer >= cooldown && cooldown != 0) {
