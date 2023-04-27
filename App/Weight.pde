@@ -28,12 +28,12 @@ class Weight extends Movable {
   void display() {
     sprite.display(location.x, location.y);
     inputMass.update();
-    mass = inputMass.intValue;
     inputMass.display();
+    
   }
   
   void massSet(){
-    mass = inputMass.intValue;
+    this.mass = inputMass.intValue;
     print(mass);
     setMass(inputMass.intValue);
   }

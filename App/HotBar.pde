@@ -14,7 +14,7 @@ class HotBar {
   UIButton sOffB = new UIButton(1336, 24, 104, 104, "Start");
 
   HotBar() {
-    location = new PVector(0, 24);
+    location = new PVector(0, 16);
     bar = loadImage("sprites/hotbar/hotbar.png");
     calc = loadImage(path + "calculator.png");
     hint = loadImage(path + "hint.png");
@@ -75,8 +75,7 @@ class HotBar {
   void play() {
     if (inPlay) {
       //currLevel.startGame = false;
-    }
-    else if (!inPlay) {
+    } else if (!inPlay) {
       currLevel.startGame = true;
     }
   }
@@ -85,6 +84,16 @@ class HotBar {
   void restart() {
     currLevel = currLevel.reset();
   }
+  
   void sound() {
+    if (!mute) {
+      actionTrack.amp(0);
+      defaultTrack.amp(0);
+      mute = true;
+    } else if (mute) {
+      actionTrack.amp(1);
+      defaultTrack.amp(1);
+      mute = false;
+    }
   }
 }
