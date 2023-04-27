@@ -23,7 +23,7 @@ class Door extends StaticObject {
         lightSprite.update();
         
         //stopblock
-        if (!stopblock.active){
+        if (!stopBlock.active){
          mainDoorSprite.update();
         }
      }
