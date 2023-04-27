@@ -34,6 +34,9 @@ class Level1 extends Level {
   boolean first = true;
   boolean won = false;
 
+  Door greenDoor;
+  Door redDoor;
+
 
   public Level1() {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
@@ -53,8 +56,14 @@ class Level1 extends Level {
     staticObjectList.add(button2);
     movableList.add(weight);
     player = new Player(liquidList, g, ground);
-    blockArr.add(new StopBlock(buttonPlatform.location.x + buttonPlatform.size.x / 2, ground.location.y - 70, 70, 70));
-    blockArr.add(new StopBlock(buttonPlatform2.location.x + buttonPlatform2.size.x / 2, ground.location.y - 70, 70, 70));
+    //blockArr.add(new StopBlock(buttonPlatform.location.x + buttonPlatform.size.x / 2, ground.location.y - 70, 70, 70));
+    //blockArr.add(new StopBlock(buttonPlatform2.location.x + buttonPlatform2.size.x / 2, ground.location.y - 70, 70, 70));
+
+    greenDoor = new Door( (int) (buttonPlatform.location.x + buttonPlatform.size.x / 2), (int) ground.location.y - 176, "green");
+    redDoor = new Door( (int) (buttonPlatform2.location.x + buttonPlatform2.size.x / 2), (int) ground.location.y - 176, "red");
+    blockArr.add(greenDoor.stopBlock);
+    blockArr.add(redDoor.stopBlock);
+
     endBlock = new StopBlock(1500, ground.location.y - 70, 70, 70);
     //input = new InputBox();
     numInput = new InputBox(new PVector(400, wTest.location.y - 50), new PVector(150, 50), 1);
@@ -85,12 +94,26 @@ class Level1 extends Level {
       fill(255);
       player.moveUpdate();
       fill(0, 255, 0);
-      player.display();
       endBlock.display();
+      
+      /*
       for (StopBlock block : blockArr) {
         block.display();
       }
-
+      */
+      
+      //Main Door
+      greenDoor.display();
+      redDoor.display();
+      
+      //Player displayed in middle of Door displays
+      player.display();
+      
+      //Door Side
+      greenDoor.displaySide();
+      redDoor.displaySide();
+      
+      
       //Puzzle 1
       buttonPlatform.display();
       button.display();
