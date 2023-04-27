@@ -11,7 +11,8 @@ class Door extends StaticObject {
    String type;
    boolean open;
 
-     //In-game door
+
+   //In-game door
    Door(int locX, int locY, String type) {
       super(locX, locY, 104, 176);
       this.location = new PVector(locX, locY);

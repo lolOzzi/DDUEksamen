@@ -28,10 +28,7 @@ class Level {
   }
 
   public void update() {
-    count++;
-    fill(255);
-    ground.display();
-    //hBar.display();
+    hBar.display();
   }
 
   public ArrayList<Liquid> getLiquidList() {
