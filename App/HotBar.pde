@@ -70,6 +70,7 @@ class HotBar {
   void hint1() {
   }
   void home() {
+    gameState.scene = '2';
   }
   void play() {
     if (inPlay) {
@@ -82,6 +83,7 @@ class HotBar {
   void playing() {
   }
   void restart() {
+    currLevel = currLevel.reset();
   }
   void sound() {
   }

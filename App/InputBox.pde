@@ -57,14 +57,17 @@ class InputBox {
   }
 
   void writing() {
+    
     if (keyPressed == false) {
       oneChar = true;
     }
 
     if (mouseInBox() && mousePressed) {
       canType = true;
+      println("I AM HERE");
     } else if (mouseInBox() == false && mousePressed) {
       canType = false;
+     
     }
 
     if (canType) {

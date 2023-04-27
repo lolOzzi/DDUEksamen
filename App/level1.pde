@@ -9,8 +9,6 @@ class Level1 extends Level {
   float wCount = 0;
   int counter = 1;
 
-  UIButton start = new UIButton(100, 100, 100, 100, "Start");
-
   Liquid air;
 
   Ground ground;
@@ -28,8 +26,6 @@ class Level1 extends Level {
 
   InputBox numInput;
   InputBox numInput2;
-
-  UIButton wBut;
 
   boolean first = true;
   boolean won = false;
@@ -60,7 +56,6 @@ class Level1 extends Level {
     numInput = new InputBox(new PVector(400, wTest.location.y - 50), new PVector(150, 50), 1);
     numInput2 = new InputBox(new PVector(400 + spacing, wTest2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
-    wBut = new UIButton(width/2 - 75, height/2 + 100, 150, 100, "Next Level");
     wScreen = new WinScreen();
     hBar.inPlay = false;
   }
@@ -70,12 +65,11 @@ class Level1 extends Level {
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         hBar.inPlay = true;
-        wTest.setMass(numInput.intValue);
-        wTest2.setMass(numInput2.intValue);
         first = false;
         defaultTrack.stop();
         actionTrack.play();
         actionTrack.loop();
+        score++;
       }
       image(backgroundImgs.get(0), 0, 0);
       //background(255);
@@ -113,40 +107,25 @@ class Level1 extends Level {
       }
     }
 
+    wTest.inputMass.display();
+    wTest.inputMass.update();
+    wTest2.inputMass.display();
+    wTest2.inputMass.update();
+    wTest.massSet();
+    wTest2.massSet();
 
-    //Start screen
-    start.display();
-    
-    numInput.display();
-    numInput.update();
-    numInput2.display();
-    numInput2.update();
     counter++;
     if (won) {
-      /*
-      fill(0, 150);
-
-      rect(0, 0, width, height);
-      fill(255, 233, 149);
-      rect(width / 2 - 400, height / 2 - 200, 800, 400);
-      fill(0);
-      textAlign(CENTER);
-      PFont font50 = createFont("Georgia", 50);
-      textFont(font50);
-      text("You Won!", width/2, height/2);
-      textAlign(BASELINE);
-      wBut.display();
-      */
+      wScreen.score = 1/score;
       wScreen.display();
     }
   }
 
   void nextLevel() {
-
     currLevel = new Level2();
   }
-  
-  Level reset(){
+
+  Level reset() {
     return new Level1();
   }
 }

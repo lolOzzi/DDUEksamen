@@ -12,6 +12,7 @@ class Level {
   int count = 0;
   WinScreen wScreen;
   HotBar hBar = new HotBar();
+  float score;
 
   boolean startGame;
 

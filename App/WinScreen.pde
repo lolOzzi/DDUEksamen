@@ -25,6 +25,10 @@ class WinScreen {
     image(sRetry, location.x + 398, location.y + 432);
     image(sNext, location.x + 672, location.y + 432);
     image(aSLvl, location.x + 112, location.y + 432);
+    textSize(40);
+    textAlign(CENTER);
+    text("Your Score Is: " + score, location.x + 984/2, location.y + 350);
+    textAlign(LEFT);
     update();
   }
 
@@ -36,6 +40,7 @@ class WinScreen {
       currLevel.nextLevel();
     }
     if (mouseButton == LEFT && allB.isClicked()) {
+      gameState.scene = '2';
     }
   }
 }
