@@ -39,10 +39,10 @@ class Level1 extends Level {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
     ground = new Ground();
-    wTest = new Weight(new PVector(250, 200), liquidList, g, ground);
+    wTest = new Weight(new PVector(275, 200), liquidList, g, ground);
     button = new Button(275, 475-40, 20, 50);
     //weight2 = new Movable(293 + spacing, 370, liquidList, g, ground);
-    wTest2 = new Weight(new PVector( (250 + spacing), 200), liquidList, g, ground);
+    wTest2 = new Weight(new PVector( (275 + spacing), 200), liquidList, g, ground);
     button2 = new Button(275 + spacing, 475-40, 20, 50);
     buttonPlatform = new Platform(250, 475 - 8, 2, button.minForce + "N - " + button.maxForce + "N");
     buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, button2.minForce + "N - " + button2.maxForce + "N");
@@ -62,12 +62,14 @@ class Level1 extends Level {
     spring = new Spring();
     wBut = new UIButton(width/2 - 75, height/2 + 100, 150, 100, "Next Level");
     wScreen = new WinScreen();
+    hBar.inPlay = false;
   }
 
   public void update() {
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
+        hBar.inPlay = true;
         wTest.setMass(numInput.intValue);
         wTest2.setMass(numInput2.intValue);
         first = false;
@@ -82,7 +84,6 @@ class Level1 extends Level {
       ground.display();
       fill(255);
       player.moveUpdate();
-      nextLevel();
       fill(0, 255, 0);
       player.display();
       endBlock.display();
@@ -140,25 +141,9 @@ class Level1 extends Level {
     }
   }
 
-
-  void mouseClicked() {
-    if (mouseButton == LEFT && start.isClicked()) {
-      startGame = true;
-    }
-  }
-
   void nextLevel() {
-    if (mouseInBox() && mousePressed) {
-      currLevel = new Level2();
-    }
-  }
-  boolean mouseInBox() {
-    if (mouseX >= wBut.location.x && mouseX <= wBut.location.x + wBut.size.x) {
-      if (mouseY >= wBut.location.y && mouseY <= wBut.location.y + wBut.size.y) {
-        return true;
-      }
-    }
-    return false;
+
+    currLevel = new Level2();
   }
   
   Level reset(){

@@ -13,7 +13,6 @@ class Level {
   WinScreen wScreen;
   HotBar hBar = new HotBar();
 
-  UIButton start = new UIButton(100, 100, 100, 100, "Start");
   boolean startGame;
 
   StopBlock endBlock;

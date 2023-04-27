@@ -60,14 +60,8 @@ void draw() {
 
 }
 
-
-void mouseClicked() {
-    if (mouseButton == LEFT && currLevel.start.isClicked()) {
-      currLevel.startGame = true;
-    }
-  }
 void keyPressed() {
   if (key == 'r') {
-    currLevel = new Level1();
+    currLevel = currLevel.reset();
   } 
 }

@@ -3,15 +3,15 @@ class HotBar {
   PVector location;
   PImage bar, calc, hint, home, play, playing, restart, sOff, sOn;
   float score;
+  boolean inPlay = false;
+  boolean mute = false;
   String path = "sprites/hotbar/icons/";
-  UIButton calcB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton hintB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton homeB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton playB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton playingB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton restartB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton sOffB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton sOnB = new UIButton(100, 100, 100, 100, "Start");
+  UIButton calcB = new UIButton(768, 24, 88, 104, "Start");
+  UIButton hintB = new UIButton(1040, 24, 112, 104, "Start");
+  UIButton homeB = new UIButton(1616, 24, 96, 104, "Start");
+  UIButton playB = new UIButton(224, 24, 72, 104, "Start");
+  UIButton restartB = new UIButton(480, 24, 104, 104, "Start");
+  UIButton sOffB = new UIButton(1336, 24, 104, 104, "Start");
 
   HotBar() {
     location = new PVector(0, 24);
@@ -31,11 +31,19 @@ class HotBar {
     image(calc, 768, location.y);
     image(hint, 1040, location.y);
     image(home, 1616, location.y);
-    image(play, 224, location.y);
-    image(playing, 224, location.y);
     image(restart, 480, location.y);
-    image(sOff, 1336, location.y);
-    image(sOn, 1336, location.y);
+
+    if (!inPlay) {
+      image(play, 224, location.y);
+    } else if (inPlay) {
+      image(playing, 224, location.y);
+    }
+
+    if (mute) {
+      image(sOff, 1336, location.y);
+    } else if (!mute) {
+      image(sOn, 1336, location.y);
+    }
     update();
   }
 
@@ -51,16 +59,10 @@ class HotBar {
     if (mouseButton == LEFT && playB.isClicked()) {
       play();
     }
-    if (mouseButton == LEFT && playingB.isClicked()) {
-      playing();
-    }
     if (mouseButton == LEFT && restartB.isClicked()) {
       restart();
     }
     if (mouseButton == LEFT && sOffB.isClicked()) {
-      sound();
-    }
-    if (mouseButton == LEFT && sOnB.isClicked()) {
       sound();
     }
   }
@@ -70,6 +72,12 @@ class HotBar {
   void home() {
   }
   void play() {
+    if (inPlay) {
+      //currLevel.startGame = false;
+    }
+    else if (!inPlay) {
+      currLevel.startGame = true;
+    }
   }
   void playing() {
   }
