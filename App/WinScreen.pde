@@ -2,7 +2,7 @@ class WinScreen {
 
   PVector location, size;
   PImage lvlComp, sRetry, sNext, aSLvl;
-  float score;
+  int score;
   String path = "sprites/game/endscreen/";
   UIButton retryB;
   UIButton nextB;
@@ -27,7 +27,8 @@ class WinScreen {
     image(sRetry, location.x + 398, location.y + 432);
     image(sNext, location.x + 672, location.y + 432);
     image(aSLvl, location.x + 112, location.y + 432);
-    textSize(40);
+    PFont pixelFont35 = createFont("./font/pixel.ttf", 35, false);
+    textFont(pixelFont35);
     textAlign(CENTER);
     text("Your Score Is: " + score, location.x + 984/2, location.y + 350);
     textAlign(LEFT);
