@@ -6,7 +6,7 @@ class Weight extends Movable {
   Weight(ArrayList<Liquid> liquidList, float g, Ground ground) {
     super(liquidList, g, ground);
     this.location = new PVector(100, 310);
-    this.size = new PVector(136, 144);
+    this.size = new PVector(88, 104);
     start = location.get();
     velocity = new PVector(0, 0);
     mass = 250;
@@ -15,7 +15,7 @@ class Weight extends Movable {
   Weight(PVector location, ArrayList<Liquid> liquidList, float g, Ground ground) {
     super(liquidList, g, ground);
     this.location = location;
-    this.size = new PVector(136, 144);
+    this.size = new PVector(88, 104);
     start = location.get();
     velocity = new PVector(0, 0);
     mass = 250;

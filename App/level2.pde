@@ -79,13 +79,6 @@ class Level2 extends Level {
       textAlign(BASELINE);
     }
   }
-
-
-  void mouseClicked() {
-    if (mouseButton == LEFT && start.isClicked()) {
-      startGame = true;
-    }
-  }
   Level reset() {
     return new Level2();
   }
