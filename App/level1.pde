@@ -71,6 +71,9 @@ class Level1 extends Level {
         wTest.setMass(numInput.intValue);
         wTest2.setMass(numInput2.intValue);
         first = false;
+        defaultTrack.stop();
+        actionTrack.play();
+        actionTrack.loop();
       }
       image(backgroundImgs.get(0), 0, 0);
       //background(255);

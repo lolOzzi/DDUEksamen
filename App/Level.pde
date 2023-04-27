@@ -20,6 +20,11 @@ class Level {
   Ground ground;
 
   public Level() {
+    if (actionTrack.isPlaying()) {
+      actionTrack.stop();
+      defaultTrack.play();
+      defaultTrack.loop();
+    }
   }
 
   public void update() {

@@ -1,3 +1,8 @@
+import processing.sound.*;
+
+
+SoundFile defaultTrack;
+SoundFile actionTrack;
 ArrayList<PImage> backgroundImgs = new ArrayList<PImage>();
 ArrayList<PImage> groundImgs = new ArrayList<PImage>();
 ArrayList<PImage> platformImgs = new ArrayList<PImage>();
@@ -18,6 +23,15 @@ public void setup() {
   fullScreen(P2D);
   noSmooth();
   frameRate(60);
+  
+    
+  //music
+  actionTrack = new SoundFile(this, "/music/action.wav");
+  defaultTrack = new SoundFile(this, "/music/default.wav");
+  defaultTrack.play();
+  defaultTrack.loop();
+  
+  
   gameState = new GameState();
   currLevel = new Level1();
   mainMenu = new MainMenu();
@@ -27,6 +41,7 @@ public void setup() {
   platformImgs = helper.loadImages( "/sprites/game/env/platform/");
   // Create a new SpriteAnimation object
   spriteAnimation = new SpriteAnimation();
+
   
   // Load sprite sheets for animation
   PImage walkSpriteSheet = loadImage("coolguy_walk.png");
