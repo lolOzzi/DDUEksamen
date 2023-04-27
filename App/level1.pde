@@ -27,8 +27,6 @@ class Level1 extends Level {
   InputBox numInput;
   InputBox numInput2;
 
-  UIButton wBut;
-
   boolean first = true;
   boolean won = false;
 
@@ -72,7 +70,6 @@ class Level1 extends Level {
     numInput = new InputBox(new PVector(400, wTest.location.y - 50), new PVector(150, 50), 1);
     numInput2 = new InputBox(new PVector(400 + spacing, wTest2.location.y - 50), new PVector(150, 50), 1);
     spring = new Spring();
-    wBut = new UIButton(width/2 - 75, height/2 + 100, 150, 100, "Next Level");
     wScreen = new WinScreen();
     hBar.inPlay = false;
   }
@@ -82,12 +79,11 @@ class Level1 extends Level {
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         hBar.inPlay = true;
-        wTest.setMass(numInput.intValue);
-        wTest2.setMass(numInput2.intValue);
         first = false;
         defaultTrack.stop();
         actionTrack.play();
         actionTrack.loop();
+        score++;
       }
       image(backgroundImgs.get(0), 0, 0);
       count++;
@@ -134,24 +130,25 @@ class Level1 extends Level {
       }
     }
 
+    wTest.inputMass.display();
+    wTest.inputMass.update();
+    wTest2.inputMass.display();
+    wTest2.inputMass.update();
+    wTest.massSet();
+    wTest2.massSet();
 
-    
-    numInput.display();
-    numInput.update();
-    numInput2.display();
-    numInput2.update();
     counter++;
     if (won) {
+      wScreen.score = 1/score;
       wScreen.display();
     }
   }
 
   void nextLevel() {
-
     currLevel = new Level2();
   }
-  
-  Level reset(){
+
+  Level reset() {
     return new Level1();
   }
 }

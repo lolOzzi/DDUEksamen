@@ -9,8 +9,6 @@ class Level2 extends Level {
   int counter = 1;
   Spike spike;
 
-  UIButton start = new UIButton(100, 100, 100, 100, "Start");
-
   Liquid air;
   Ground ground;
   InputBox numInput;
@@ -58,25 +56,12 @@ class Level2 extends Level {
       }
     }
 
-
-    //Start screen
-    start.display();
     numInput.update();
     numInput.display();
 
     counter++;
     if (won) {
-      fill(0, 150);
-
-      rect(0, 0, width, height);
-      fill(255, 233, 149);
-      rect(width / 2 - 400, height / 2 - 200, 800, 400);
-      fill(0);
-      textAlign(CENTER);
-      PFont font50 = createFont("Georgia", 50);
-      textFont(font50);
-      text("You Won!", width/2, height/2);
-      textAlign(BASELINE);
+      wScreen.display();
     }
   }
   Level reset() {

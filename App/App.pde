@@ -20,7 +20,7 @@ Player player;
 
 public void setup() {
   //size(960, 540);
-  fullScreen(P2D, 2);
+  fullScreen(P2D, 1);
   noSmooth();
   frameRate(60);
   
