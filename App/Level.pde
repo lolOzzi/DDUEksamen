@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Level {
-  
+
   ArrayList<Liquid> liquidList = new ArrayList<Liquid>();
   ArrayList<Movable> movableList = new ArrayList<Movable>();
   ArrayList<StopBlock> blockArr = new ArrayList<StopBlock>();
@@ -9,12 +9,13 @@ class Level {
   color liquid_color = color(0, 0, 255);
   color air_color = color(255, 255, 255);
   float g = 9.82;
-  int count = 0; 
+  int count = 0;
   WinScreen wScreen;
-  
-    UIButton start = new UIButton(100, 100, 100, 100, "Start");
+  HotBar hBar = new HotBar();
+
+  UIButton start = new UIButton(100, 100, 100, 100, "Start");
   boolean startGame;
-  
+
   StopBlock endBlock;
   Ground ground;
 
@@ -25,16 +26,20 @@ class Level {
     count++;
     fill(255);
     ground.display();
+    //hBar.display();
   }
 
   public ArrayList<Liquid> getLiquidList() {
     return liquidList;
   }
-  
+
   public float getGravity() {
     return g;
   }
-  Level reset(){
+  Level reset() {
     return new Level();
+  }
+  void nextLevel() {
+    currLevel = new Level1();
   }
 }
