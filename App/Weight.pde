@@ -35,6 +35,6 @@ class Weight extends Movable {
   void massSet(){
     mass = inputMass.intValue;
     print(mass);
-    setMass(inputMass.initValue);
+    setMass(inputMass.intValue);
   }
 }
