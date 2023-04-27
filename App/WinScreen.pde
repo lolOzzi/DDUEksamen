@@ -4,9 +4,9 @@ class WinScreen {
   PImage lvlComp, sRetry, sNext, aSLvl;
   float score;
   String path = "sprites/game/endscreen/";
-  UIButton retryB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton nextB = new UIButton(100, 100, 100, 100, "Start");
-  UIButton allB = new UIButton(100, 100, 100, 100, "Start");
+  UIButton retryB;
+  UIButton nextB;
+  UIButton allB;
 
   WinScreen() {
     location = new PVector(width/2 - 492, height/2 - 336);
@@ -15,6 +15,9 @@ class WinScreen {
     sRetry = loadImage(path + "retrylevel.png");
     sNext = loadImage(path + "nextlevel.png");
     aSLvl = loadImage(path + "levelscreen.png");
+    retryB = new UIButton(location.x + 398, location.y + 432, 100, 100, "Start");
+    nextB = new UIButton(location.x + 672, location.y + 432, 100, 100, "Start");
+    allB = new UIButton(location.x + 112, location.y + 432, 100, 100, "Start");
   }
 
   void display() {

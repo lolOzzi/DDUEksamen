@@ -151,7 +151,7 @@ class Level1 extends Level {
   }
   boolean mouseInBox() {
     if (mouseX >= wBut.location.x && mouseX <= wBut.location.x + wBut.size.x) {
-      if (mouseX >= wBut.location.y && mouseY <= wBut.location.y + wBut.size.y) {
+      if (mouseY >= wBut.location.y && mouseY <= wBut.location.y + wBut.size.y) {
         return true;
       }
     }

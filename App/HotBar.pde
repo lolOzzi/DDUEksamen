@@ -42,22 +42,29 @@ class HotBar {
     if (mouseButton == LEFT && calcB.isClicked()) {
     }
     if (mouseButton == LEFT && hintB.isClicked()) {
+      hint1();
     }
     if (mouseButton == LEFT && homeB.isClicked()) {
+      home();
     }
     if (mouseButton == LEFT && playB.isClicked()) {
+      play();
     }
     if (mouseButton == LEFT && playingB.isClicked()) {
+      playing();
     }
     if (mouseButton == LEFT && restartB.isClicked()) {
+      restart();
     }
     if (mouseButton == LEFT && sOffB.isClicked()) {
+      sound();
     }
     if (mouseButton == LEFT && sOnB.isClicked()) {
+      sound();
     }
   }
 
-  void hint() {
+  void hint1() {
   }
   void home() {
   }
