@@ -12,7 +12,7 @@ class Button extends StaticObject {
          this.size = new PVector(176, 40);
          this.minForce = minForce;
          this.maxForce = maxForce;
-         sprite = new Sprite("pog", loadImage("sprites/game/button/button.png"), 1, 2, 0);
+         sprite = new Sprite("pog", loadImage("sprites/game/button/greenbutton.png"), 1, 2, 0);
      }
      
      void display() {
