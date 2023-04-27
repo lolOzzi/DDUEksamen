@@ -36,6 +36,7 @@ class HotBar {
     image(restart, location.x + 600, location.y);
     image(sOff, location.x + 700, location.y);
     image(sOn, location.x + 800, location.y);
+    update();
   }
 
   void update() {

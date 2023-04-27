@@ -15,8 +15,8 @@ class WinScreen {
     sRetry = loadImage(path + "retrylevel.png");
     sNext = loadImage(path + "nextlevel.png");
     aSLvl = loadImage(path + "levelscreen.png");
-    retryB = new UIButton(location.x + 398, location.y + 432, 100, 100, "Start");
-    nextB = new UIButton(location.x + 672, location.y + 432, 100, 100, "Start");
+    retryB = new UIButton(location.x + 398, location.y + 432, 224, 200, "Start");
+    nextB = new UIButton(location.x + 672, location.y + 432, 224, 192, "Start");
     allB = new UIButton(location.x + 112, location.y + 432, 100, 100, "Start");
   }
 
@@ -25,6 +25,7 @@ class WinScreen {
     image(sRetry, location.x + 398, location.y + 432);
     image(sNext, location.x + 672, location.y + 432);
     image(aSLvl, location.x + 112, location.y + 432);
+    update();
   }
 
   void update() {
