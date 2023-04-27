@@ -21,6 +21,8 @@ class WinScreen {
   }
 
   void display() {
+    fill(0, 150);
+    rect(0, 0, width, height);
     image(lvlComp, location.x, location.y);
     image(sRetry, location.x + 398, location.y + 432);
     image(sNext, location.x + 672, location.y + 432);
