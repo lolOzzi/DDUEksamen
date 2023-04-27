@@ -14,7 +14,7 @@ class HotBar {
   UIButton sOnB = new UIButton(100, 100, 100, 100, "Start");
 
   HotBar() {
-    location = new PVector(0, 25);
+    location = new PVector(0, 24);
     bar = loadImage("sprites/hotbar/hotbar.png");
     calc = loadImage(path + "calculator.png");
     hint = loadImage(path + "hint.png");
@@ -28,14 +28,14 @@ class HotBar {
 
   void display() {
     image(bar, location.x, 0);
-    image(calc, location.x + 100, location.y);
-    image(hint, location.x + 200, location.y);
-    image(home, location.x + 300, location.y);
-    image(play, location.x + 400, location.y);
-    image(playing, location.x + 500, location.y);
-    image(restart, location.x + 600, location.y);
-    image(sOff, location.x + 700, location.y);
-    image(sOn, location.x + 800, location.y);
+    image(calc, 768, location.y);
+    image(hint, 1040, location.y);
+    image(home, 1616, location.y);
+    image(play, 224, location.y);
+    image(playing, 224, location.y);
+    image(restart, 480, location.y);
+    image(sOff, 1336, location.y);
+    image(sOn, 1336, location.y);
     update();
   }
 
