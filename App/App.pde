@@ -17,12 +17,16 @@ Level currLevel;
 MainMenu mainMenu;
 Spring spring;
 Player player;
+Calculator calc;
 
 public void setup() {
+  
   //size(960, 540);
   fullScreen(P2D);
   noSmooth();
   frameRate(60);
+  
+  calc = new Calculator();
   
     
   //music
@@ -33,7 +37,7 @@ public void setup() {
   
   
   gameState = new GameState();
-  currLevel = new Level1();
+  currLevel = new Level2();
   mainMenu = new MainMenu();
   //currLevel = new Level0();
   backgroundImgs = helper.loadImages( "/sprites/game/env/background/");
@@ -55,6 +59,7 @@ public void setup() {
 
 void draw() {
   //background(255);
+  calc.update();
   gameState.update();
   //ellipse(mouseX, mouseY, 20, 20);
 
