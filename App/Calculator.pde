@@ -72,25 +72,26 @@ class Calculator {
           break;
         }
         cOp = ' ';
+        print(result);
       }
     }
   }
 
 
-  float addition() {
-    return prevNum + Float.parseFloat(getValueString(currNumbers));
+  void addition() {
+    result = prevNum + Float.parseFloat(getValueString(currNumbers));
   }
-  float subtraction() {
-    return prevNum - Float.parseFloat(getValueString(currNumbers));
+  void subtraction() {
+    result = prevNum - Float.parseFloat(getValueString(currNumbers));
   }
-  float multiplication() {
-    return prevNum * Float.parseFloat(getValueString(currNumbers));
+  void multiplication() {
+    result = prevNum * Float.parseFloat(getValueString(currNumbers));
   }
-  float division() {
-    return prevNum / Float.parseFloat(getValueString(currNumbers));
+  void division() {
+    result = prevNum / Float.parseFloat(getValueString(currNumbers));
   }
-  float exponentiation() {
-    return pow(prevNum, Float.parseFloat(getValueString(currNumbers)));
+  void exponentiation() {
+    result = pow(prevNum, Float.parseFloat(getValueString(currNumbers)));
   }
 
 
