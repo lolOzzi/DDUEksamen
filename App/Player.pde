@@ -13,7 +13,7 @@ class Player extends Movable { //<>//
   Player(ArrayList<Liquid> liquidList, float g, Ground ground ) {
     super(liquidList, g, ground);
     acceleration = new PVector(1.75, 0);
-    speed = new PVector(1.75, 0);
+    speed = new PVector(3.5, 0);
     mass = 2f;
     location = new PVector(50, ground.location.y + size.y);
     ogLoc = new PVector(location.x, location.y);
@@ -21,7 +21,7 @@ class Player extends Movable { //<>//
     size = new PVector(96, 136);
     plAnim = new SpriteAnimation();
     jumpSprite = new Sprite("logo", loadImage("sprites/game/player/movement/jump.png"), 1, 2, 0);
-    walkSprite = new Sprite("walk", loadImage("sprites/game/player/movement/walk.png"), 1, 4, 9);
+    walkSprite = new Sprite("walk", loadImage("sprites/game/player/movement/walk.png"), 1, 4, 11);
     hitCount = 0;
   }
 
