@@ -20,7 +20,7 @@ class Door extends StaticObject {
       if (Arrays.asList(doorTypes).contains(type)) {
          this.type = type;
       } else {
-         print("Door type not found, defaulting to green");
+         ;
          this.type = "green";
       }
 
@@ -36,6 +36,7 @@ class Door extends StaticObject {
       mainDoorSprite.display(location.x, location.y);
       lightSprite.display(location.x, location.y);
       lightSprite.update();
+
       
       //stopblock
       if (!stopBlock.active && mainDoorSprite.currentFrame < 5){

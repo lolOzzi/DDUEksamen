@@ -18,7 +18,7 @@ class Button extends StaticObject {
       if (Arrays.asList(buttonTypes).contains(type)) {
          this.type = type;
       } else {
-         print("Button type not found, defaulting to green");
+         ;
          this.type = "green";
       }
       sprite = new Sprite("button", loadImage("sprites/game/button/" +this.type+ "button.png"), 1, 2, 0);

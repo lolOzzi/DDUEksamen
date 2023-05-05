@@ -22,7 +22,7 @@ public void setup() {
   //size(960, 540);
   fullScreen(P2D, 1);
   noSmooth();
-  frameRate(60);
+  frameRate(30);
   
     
   //music

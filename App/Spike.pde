@@ -33,14 +33,14 @@ class Spike {
 
     if (size.x/2 >= transX && transX >= -size.x/2) {
       if (location.y + size.y + (slope * abs(transX) - size.y) <= transY && transY <= location.y + size.y) {
-        player.died = true;
+        player.death("spike");
       }
     }
 
     transX += player.size.x;
     if (size.x/2 >= transX && transX >= -size.x/2) {
       if (location.y + size.y + (slope * abs(transX) - size.y) <= transY && transY <= location.y + size.y) {
-        player.died = true;
+        player.death("spike");
       }
     }
   }
