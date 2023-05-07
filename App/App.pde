@@ -29,6 +29,7 @@ public void setup() {
   fullScreen(P2D, 2);
   noSmooth();
   frameRate(30);
+  hint(DISABLE_TEXTURE_MIPMAPS);
   
     
   //music

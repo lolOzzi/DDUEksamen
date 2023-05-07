@@ -7,6 +7,7 @@ class WinScreen {
   UIButton retryB;
   UIButton nextB;
   UIButton allB;
+  PFont pixelFont35;
 
   WinScreen() {
     location = new PVector(width/2 - 492, height/2 - 336);
@@ -18,6 +19,7 @@ class WinScreen {
     retryB = new UIButton(location.x + 398, location.y + 432, 200, 168, "Start");
     nextB = new UIButton(location.x + 672, location.y + 432, 200, 168, "Start");
     allB = new UIButton(location.x + 112, location.y + 432, 200, 168, "Start");
+    pixelFont35 = createFont("./font/pixel.ttf", 35, false);
   }
 
   void display() {
@@ -27,7 +29,6 @@ class WinScreen {
     image(sRetry, location.x + 398, location.y + 432);
     image(sNext, location.x + 672, location.y + 432);
     image(aSLvl, location.x + 112, location.y + 432);
-    PFont pixelFont35 = createFont("./font/pixel.ttf", 35, false);
     textFont(pixelFont35);
     textAlign(CENTER);
     text("Your Score Is: " + score, location.x + 984/2, location.y + 350);

@@ -64,38 +64,48 @@ class Level1 extends Level {
 
   public void update() {
     allDisplay();
+   
     if (counter == 1) {
       this.startTime = millis();
     }
 
-    if (startGame || counter == 1) {
-      if (first && counter != 1) {
+    if (startGame) {
+      player.moveUpdate();
+    }
+
+
+    if (startGame && !won) {
+      if (first) {
         actionSetup();
         weight.massInput.disabled = true;
         weight2.massInput.disabled = true;
       }
       count++;
-      player.moveUpdate();
       
       
       //Puzzle 1
 
-      weight.update();
-
       if (button.pressed) {
         blockArr.get(0).active = false;
+      } else {
+        weight.update();
       }
 
       //Puzzle 2
-      weight2.update();
       if (button2.pressed) {
         blockArr.get(1).active = false;
+      } else {
+        weight2.update();
       }
     }
 
+    if (weight.massInput.disabled) {
+      weight.updateInput();
+    }
+    if (weight2.massInput.disabled) {
+      weight2.updateInput();
+    }
 
-    weight.updateInput();
-    weight2.updateInput();
     counter++;
 
     winUpdate();
