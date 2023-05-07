@@ -16,6 +16,9 @@ class GameState {
     case '1':
       currLevel.update();
       currLevel.hBar.display();
+      if (currLevel.hintEnabled) {
+         currLevel.hint.display();
+      }
       if (player.hitCount >= 100 || player.died == true) {
         Fail();
         currLevel.startGame = false;

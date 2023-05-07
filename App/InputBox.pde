@@ -3,7 +3,7 @@ import java.util.ArrayList;
 class InputBox {
   PVector location, size;
   ArrayList<Character> value = new ArrayList<Character>();
-  boolean canType, oneChar, hasBack;
+  boolean canType, oneChar, hasBack, disabled;
 
   // type = 0 er for strings, type = 1 er for tal og type = 2 er for passwords
   String combValue;
@@ -14,28 +14,35 @@ class InputBox {
 
   PFont inputFont = createFont("./font/pixel.ttf", 16, false);
   String defaultString = "Type here";
+  String defaultDisplayString;
+  String unit = "";
   int framesSinceActive = 0;
 
-  InputBox() {
-    location = new PVector(100, 100);
-    size = new PVector(150, 150);
-    oneChar = true;
-    combValue = "";
-    type = 0;
-    insNum();
 
+
+  InputBox() {
+    this(new PVector(100, 100), new PVector(150, 150), 0);
   }
 
   InputBox(PVector location, PVector size, int type) {
     this(location, size, type, "Type here");
   }
-    InputBox(PVector location, PVector size, int type, String defaultString) {
+  
+  InputBox(PVector location, PVector size, int type, String defaultString) {
+    this(location, size, type, defaultString, "");
+  }
+
+  InputBox(PVector location, PVector size, int type, String defaultString, String unit) {
     this.location = location;
     this.size = size;
     this.type = type;
     this.defaultString = defaultString;
+    this.unit = unit;
     oneChar = true;
     combValue = "";
+    defaultDisplayString = defaultString;
+    textFont(inputFont);
+    this.size = new PVector(textWidth(defaultString) + 10, size.y);
     insNum();
   }
 
@@ -54,14 +61,21 @@ class InputBox {
     textFont(inputFont);
     textAlign(LEFT, CENTER);
     if (combValue.length() > 0) {
-      text(combValue, location.x + 10, location.y + size.y/2);
+      text(combValue, location.x + 5, location.y + size.y/2);
+
     } else {
-      text(defaultString, location.x + 10, location.y + size.y/2);
+      text(defaultDisplayString, location.x + 5, location.y + size.y/2);
     }
-    //blink line every 0.5 sec
+
+    //Display Unit
+    if (combValue.length() > 0 || canType) {
+      text(unit, location.x + 5 + textWidth(combValue) + 5, location.y + size.y/2);
+    }
+
+    //Display cursor
     if (canType && framesSinceActive % 30 < 15) {
       rectMode(CENTER);
-      rect(location.x + 10 + textWidth(combValue), location.y + size.y/2, 2, 20);
+      rect(location.x + 5 + textWidth(combValue), location.y + size.y/2, 2, 20);
       rectMode(BASELINE);
     }
     textAlign(BASELINE, BASELINE);
@@ -87,17 +101,17 @@ class InputBox {
       oneChar = true;
     }
 
-    if (mouseInBox() && mousePressed) {
+    if (mouseInBox() && mousePressed && !disabled) {
       canType = true;
       if (justClicked == false) {
-        defaultString = "";
+        defaultDisplayString = "";
         justClicked = true;
       }
       
-    } else if (mouseInBox() == false && mousePressed) {
+    } else if (mouseInBox() == false && mousePressed && !disabled) {
       canType = false;
       if (justClicked) {
-        defaultString = "Type here";
+        defaultDisplayString = defaultString;
         justClicked = false;
       }
     }

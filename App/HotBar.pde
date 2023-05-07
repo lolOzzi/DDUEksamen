@@ -36,7 +36,9 @@ class HotBar {
     if (!inPlay) {
       image(play, 224, location.y);
     } else if (inPlay) {
+      tint(255, 127); 
       image(playing, 224, location.y);
+      tint(255, 255); 
     }
 
     if (mute) {
@@ -48,26 +50,31 @@ class HotBar {
   }
 
   void update() {
-    if (mouseButton == LEFT && calcB.isClicked()) {
+    if (mousePressed && (mouseButton == LEFT) && calcB.isClicked()) {
     }
-    if (mouseButton == LEFT && hintB.isClicked()) {
-      hint1();
+    if (mousePressed && (mouseButton == LEFT) && hintB.isClicked()) {
+      hint();
     }
-    if (mouseButton == LEFT && homeB.isClicked()) {
+    if (mousePressed && (mouseButton == LEFT) && homeB.isClicked()) {
       home();
     }
-    if (mouseButton == LEFT && playB.isClicked()) {
+    if (mousePressed && (mouseButton == LEFT) && playB.isClicked()) {
       play();
     }
-    if (mouseButton == LEFT && restartB.isClicked()) {
+    if (mousePressed && (mouseButton == LEFT) && restartB.isClicked()) {
       restart();
     }
-    if (mouseButton == LEFT && sOffB.isClicked()) {
+    if (mousePressed && (mouseButton == LEFT) && sOffB.isClicked()) {
       sound();
     }
   }
 
-  void hint1() {
+  void hint() {
+    if (currLevel.hintEnabled == false && isMouseReleased()) {
+      currLevel.hintEnabled = true;
+    } else if (currLevel.hintEnabled == true  && isMouseReleased()) {
+      currLevel.hintEnabled = false;
+    }
   }
   void home() {
     gameState.scene = '2';
@@ -86,11 +93,11 @@ class HotBar {
   }
   
   void sound() {
-    if (!mute) {
+    if (!mute && isMouseReleased()) {
       actionTrack.amp(0);
       defaultTrack.amp(0);
       mute = true;
-    } else if (mute) {
+    } else if (mute && isMouseReleased()) {
       actionTrack.amp(1);
       defaultTrack.amp(1);
       mute = false;

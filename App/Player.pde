@@ -16,7 +16,7 @@ class Player extends Movable { //<>// //<>//
     super(liquidList, g, ground);
     acceleration = new PVector(1.75, 0);
     speed = new PVector(3.5, 0);
-    mass = 2f;
+    mass = 50f;
     size = new PVector(96, 136);
     location = new PVector(50, ground.location.y - size.y);
     ogLoc = new PVector(location.x, location.y);
@@ -31,6 +31,7 @@ class Player extends Movable { //<>// //<>//
   void moveUpdate() {
     keyCheck();
     hitBlock = inBlocks();
+    checkInBounds();
     atEnd();
     if (!dying) {
     if (onGround == true && hitBlock == false) {
@@ -50,8 +51,12 @@ class Player extends Movable { //<>// //<>//
     }
   }
 
-  void display() {
-    playerAnim();
+  void display(boolean animate) {
+    if (animate) {
+      playerAnim();
+    } else {
+      walkSprite.display(location.x, location.y);
+    }
   }
 
   void playerAnim() {
@@ -62,15 +67,15 @@ class Player extends Movable { //<>// //<>//
       } else {
         jumpSprite.display(location.x, location.y);
       }
-      } else {
-        
-        defaultDeathSprite.display(location.x, location.y);
-        defaultDeathSprite.update();
-        if (defaultDeathSprite.currentFrame == 4) {
-          delay(500);
-          this.died = true; 
-        }
+    } else {
+      defaultDeathSprite.display(location.x, location.y);
+      defaultDeathSprite.update();
+      if (defaultDeathSprite.currentFrame == 4) {
+        delay(750);
+        this.died = true; 
       }
+      
+    }
 
   }
 
@@ -86,8 +91,10 @@ class Player extends Movable { //<>// //<>//
   boolean inBlocks() {
     blockArr = currLevel.blockArr;
     for (StopBlock block : blockArr) {
-      if (block.location.x < location.x && location.x < block.location.x + block.size.x && block.active) {
-        return true;
+      if (block.location.x < location.x && location.x < block.location.x + block.size.x && block.active) { 
+        if (block.location.y < location.y && location.y < block.location.y + block.size.y) {
+          return true;
+        }
       }
     }
     return false;
@@ -95,8 +102,10 @@ class Player extends Movable { //<>// //<>//
 
   void atEnd() {
     endBlock = currLevel.endBlock;
-    if (endBlock.location.x < location.x && location.x < endBlock.location.x + endBlock.size.x) {
-      atEnd = true;
+    if (endBlock.location.x < location.x + 10 && location.x < endBlock.location.x + endBlock.size.x + 10) {
+      if (endBlock.location.y < location.y + 10 && location.y < endBlock.location.y + endBlock.size.y + 10) {
+          atEnd = true;
+      }
     }
   }
 
@@ -110,7 +119,11 @@ class Player extends Movable { //<>// //<>//
       this.dying = true;
 
     }
-
-
+  }
+  void checkInBounds() {
+    if ((location.x > width || location.x < 0 || location.y > height || location.y < 0) && !currLevel.won) {
+      delay(500);
+      this.died = true;
+    }
   }
 }

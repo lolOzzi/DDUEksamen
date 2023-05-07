@@ -10,10 +10,16 @@ class Level3 extends Level {
   Spike spike;
 
   Liquid air;
-  InputBox numInput;
 
   ArrayList<Spike> spikeArr = new ArrayList<Spike>();
-  
+
+  Button button;
+  Platform buttonPlatform;
+  Weight weight;
+
+  Door greenDoor;
+
+  int doorGroundOffset = -176 + 8;
 
 
   public Level3() {
@@ -21,47 +27,104 @@ class Level3 extends Level {
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
 
+    //Force definitions
+    float btnMinForce = 20;
+    float btnMaxForce = 50;
+
+    //Platform & static object definitions
+    buttonPlatform = new Platform(800, 475 - 8, 2, (int) btnMinForce + "N - " + (int) btnMaxForce + "N");
+    staticObjectList.add(ground);
+    staticObjectList.add(buttonPlatform);
+
+
+    //Weight button combinations
+    weight = new Weight(new PVector(buttonPlatform.location.x, 200), liquidList, g, ground);
+    button = new Button((int) buttonPlatform.location.x, 475-40, btnMinForce, btnMaxForce, "green");
+    staticObjectList.add(button);
+    movableList.add(weight);
+
+    //Door definitions
+    greenDoor = new Door( (int) (buttonPlatform.location.x + buttonPlatform.size.x / 2), (int) ground.location.y + doorGroundOffset, "green");
+    blockArr.add(greenDoor.stopBlock);
+
     //Spring setup
-    spring = new Spring(new PVector(230, 770), "right");
-    numInput = new InputBox(new PVector(spring.location.x, spring.location.y - 50), new PVector(150, 50), 1);
+    spring = new Spring(new PVector(200, 770), "right");
 
     //Spike definitions
-    spikeArr.add(new Spike( new PVector(1030, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *2, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *3, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *4, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *5, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *6, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *7, 800)));
-    spikeArr.add(new Spike( new PVector(1030 -56 *8, 800)));
+    spikeArr.add(new Spike( new PVector(500, 800)));
+
+    int spikeRowHeight = (int) (ground.location.y + doorGroundOffset - 88);
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *2, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *3, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *4, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *5, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *6, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *7, spikeRowHeight)));
+    spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *8, spikeRowHeight)));
+
+;
 
   }
 
+
   public void update() {
+    allDisplay();
+    if (counter == 1) {
+      this.startTime = millis();
+    }
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         actionSetup();
+        spring.forceInput.disabled = true;
+        weight.massInput.disabled = true;
       }
       count++;
-      defaultDisplay();
       
-      spring.fLength = numInput.intValue;
+      player.moveUpdate();
+      //Puzzle 1
       spring.update();
       spring.display();
       for (Spike spike : spikeArr) {
         spike.display();
         spike.update();
       }
-      fill(0, 255, 0);
-      player.display();
+      
+      
+      //Puzzle 2
+      weight.update();
+      if (button.pressed) {
+        blockArr.get(0).active = false;
+      }
     }
 
-    numInput.update();
-    numInput.display();
+    //Update inputs
+    spring.updateInput();
+    weight.updateInput();
     
     winUpdate();
     counter++;
+  }
+  void allDisplay() {
+    defaultDisplay();
+    spring.display();
+    for (Spike spike : spikeArr) {
+      spike.display();
+    }
+    greenDoor.display();
+
+    if (startGame) {
+      player.display(true);
+    } else {
+      player.display(false);
+    }
+
+    greenDoor.displaySide();
+
+    buttonPlatform.display();
+    button.display();
+    weight.display();
   }
 }

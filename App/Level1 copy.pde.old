@@ -60,7 +60,6 @@ class Level1 extends Level {
   }
 
   public void update() {
-    allDisplay();
     if (counter == 1) {
       this.startTime = millis();
     }
@@ -72,11 +71,24 @@ class Level1 extends Level {
         weight2.massInput.disabled = true;
       }
       count++;
-      player.moveUpdate();
+      defaultDisplay();
+      
+      //Main Doors
+      greenDoor.display();
+      redDoor.display();
+      
+      //Player displayed in middle of Door displays
+      player.display();
+      
+      //Door Side
+      greenDoor.displaySide();
+      redDoor.displaySide();
       
       
       //Puzzle 1
-
+      buttonPlatform.display();
+      button.display();
+      weight.display();
       weight.update();
 
       if (button.pressed) {
@@ -84,6 +96,9 @@ class Level1 extends Level {
       }
 
       //Puzzle 2
+      buttonPlatform2.display();
+      button2.display();
+      weight2.display();
       weight2.update();
       if (button2.pressed) {
         blockArr.get(1).active = false;
@@ -98,36 +113,5 @@ class Level1 extends Level {
     winUpdate();
   }
 
-  void allDisplay() {
-     defaultDisplay();
-      
-      //Main Doors
-      greenDoor.display();
-      redDoor.display();
-      
-      //Player displayed in middle of Door displays
-      if (startGame) {
-        player.display(true);
-      } else {
-        player.display(false);
-      }
-
-      
-      //Door Side
-      greenDoor.displaySide();
-      redDoor.displaySide();
-      
-      
-      //Puzzle 1
-      buttonPlatform.display();
-      button.display();
-      weight.display();
-
-
-      //Puzzle 2
-      buttonPlatform2.display();
-      button2.display();
-      weight2.display();
-  }
 
 }

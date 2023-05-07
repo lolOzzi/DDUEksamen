@@ -37,15 +37,21 @@ class Movable {
     this.ground = ground;
 
   }
-  Movable(float locX, float locY, ArrayList<Liquid> liquidList, float g, Ground ground)
+ Movable(PVector location, ArrayList<Liquid> liquidList, float g, Ground ground) {
+    this(location, new PVector(48, 60), liquidList, g, ground, new PVector(0, 0));
+  }
+  Movable(PVector location, PVector size, ArrayList<Liquid> liquidList, float g, Ground ground) {
+    this(location, size, liquidList, g, ground, new PVector(0, 0));
+  }
+  Movable(PVector location, PVector size, ArrayList<Liquid> liquidList, float g, Ground ground, PVector startAccel)
   {
-    size = new PVector(48, 60);
+    this.size = size;
     //location = new PVector(random(0, width-size.x), random(100, 200));
     //location = new PVector(50, liquidList.get(0).loc.y - size.y / 2);
-    location = new PVector(locX, locY);
+    this.location = location;
     start = location.get();
     velocity = new PVector(0, 0);
-    acceleration = new PVector(0, 0);
+    acceleration = startAccel;
     mass = 250;
     cw = 1.4f;
     areaX = size.x*size.x / pow(80, 2);
@@ -54,8 +60,9 @@ class Movable {
     this.liquidList = liquidList;
     this.g = g;
     this.ground = ground;
-
   }
+
+
   void update ()
   {
 
@@ -92,15 +99,20 @@ class Movable {
     }
 
     if (onGround) {
-      location.y = height - ground.size.y - size.y;
+      location.y = ground.location.y - size.y;
+
       if (velocity.y > 0)
       {
         velocity.y = 0;
+
       }
     }
+    
     for (StaticObject obj : staticObjectList) {
       Collision(obj);
     }
+
+
      
     velocity.add(acceleration);
     location.add(velocity);
@@ -228,7 +240,7 @@ boolean isOnGround(Ground ground) {
   }
 
   void Collision(StaticObject other) {
-    if (isColliding(other)) {
+    if (isColliding(other) && !onGround) {
 
       fill(0);
       text(detectCollisionSide(this, other), 1000, 100);

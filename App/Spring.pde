@@ -6,6 +6,7 @@ class Spring {
   float angle;
   PImage springSpriteSheet;
   boolean activated;
+  InputBox forceInput;
 
 
   Spring() {
@@ -30,9 +31,11 @@ class Spring {
       angle = 135;
     }
 
+    forceInput = new InputBox(new PVector(this.location.x + this.size.x + 16, this.location.y - this.size.y/28), new PVector(168, 40), 1, "Input Force", "N");
+
     sAnim = new Sprite("spring", springSpriteSheet, 1, 3, 9);
     force = new PVector(20, -40);
-    fLength = 1;
+    fLength = 0;
 
   }
 
@@ -44,10 +47,15 @@ class Spring {
   }
   
   void update(){
+    fLength = forceInput.intValue;
     force = new PVector(fLength * cos(radians(angle)), -fLength * sin(radians(angle)));
     overSpring();
   }
-  
+
+  void updateInput() {
+    forceInput.update();
+    forceInput.display();
+  }
 
   void overSpring() {
     if (location.x < player.location.x && player.location.x < location.x + size.x) {

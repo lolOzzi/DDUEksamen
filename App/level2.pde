@@ -23,7 +23,6 @@ class Level2 extends Level {
 
     //Spring setup
     spring = new Spring(new PVector(230, 770), "right");
-    numInput = new InputBox(new PVector(spring.location.x, spring.location.y - 50), new PVector(150, 50), 1);
 
     //Spike definitions
     spikeArr.add(new Spike( new PVector(1030, 800)));
@@ -34,29 +33,42 @@ class Level2 extends Level {
   }
 
   public void update() {
+    allDisplay();
+    if (counter == 1) {
+      this.startTime = millis();
+    }
 
     if (startGame || counter == 1) {
       if (first && counter != 1) {
         actionSetup();
+        spring.forceInput.disabled = true;
       }
       count++;
-      defaultDisplay();
-      
-      spring.fLength = numInput.intValue;
+      player.moveUpdate();
+
       spring.update();
-      spring.display();
       for (Spike spike : spikeArr) {
-        spike.display();
         spike.update();
       }
-      fill(0, 255, 0);
-      player.display();
+
     }
 
-    numInput.update();
-    numInput.display();
+    spring.updateInput();
     
     winUpdate();
     counter++;
+  }
+
+  void allDisplay() {
+     defaultDisplay();
+     spring.display();
+     for (Spike spike : spikeArr) {
+        spike.display();
+     }
+    if (startGame) {
+        player.display(true);
+    } else {
+        player.display(false);
+    }
   }
 }

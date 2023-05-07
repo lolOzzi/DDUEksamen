@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.lang.reflect.Constructor;
-
+import java.lang.reflect.*;
 class Level {
 
   ArrayList<Liquid> liquidList = new ArrayList<Liquid>();
@@ -16,6 +16,9 @@ class Level {
   float score;
 
   boolean startGame;
+  boolean hintEnabled;
+
+  Hint hint;
 
   StopBlock endBlock;
   Ground ground;
@@ -39,8 +42,6 @@ class Level {
 
   public Level() {
     //Level setup
-
-
     staticObjectList = new ArrayList<StaticObject>();
 
     //Env setup
@@ -55,6 +56,10 @@ class Level {
     endBlock = winFlag.endBlock;
     wScreen = new WinScreen();
 
+    //Hint setup
+    PImage hintImg = loadImage("./formula/gravity.png");
+    hint = new Hint("Hint Test", "git gud lol", hintImg);
+
 
     if (actionTrack.isPlaying()) {
       actionTrack.stop();
@@ -65,6 +70,7 @@ class Level {
 
   public void update() {
     hBar.display();
+
   }
 
   public ArrayList<Liquid> getLiquidList() {
@@ -94,7 +100,6 @@ class Level {
   void defaultDisplay() {
     image(backgroundImgs.get(0), 0, 0);
     ground.display();
-    player.moveUpdate();
     winFlag.display();
   }
 
@@ -126,11 +131,10 @@ class Level {
         return (Level) innerCls.getDeclaredConstructor(appCls).newInstance(PAPPLET);
       }
       catch (final ReflectiveOperationException ex) {
-        //System.err.println(ex);
+        println(ex.getCause());
         throw new RuntimeException(ex);
       }
     } else {
-      // You can throw an exception or do something else if you reach the end of the levels array
       System.out.println("You have reached the end of the levels.");
     }
     return null;

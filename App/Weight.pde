@@ -2,7 +2,7 @@ class Weight extends Movable {
 
   float val;
   Sprite sprite;
-  InputBox inputMass;
+  InputBox massInput;
 
   Weight(ArrayList<Liquid> liquidList, float g, Ground ground) {
     super(liquidList, g, ground);
@@ -12,8 +12,9 @@ class Weight extends Movable {
     velocity = new PVector(0, 0);
     mass = 250;
     sprite = new Sprite("logo", loadImage("sprites/game/env/weight/weight.png"), 1, 1, 0);
-    inputMass = new InputBox(new PVector(this.location.x + 40, this.location.y - this.size.y/2), new PVector(168, 32), 1);
+    massInput = new InputBox(new PVector(this.location.x + 40, this.location.y - this.size.y/2), new PVector(168, 40), 1);
   }
+
   Weight(PVector location, ArrayList<Liquid> liquidList, float g, Ground ground) {
     super(liquidList, g, ground);
     this.location = location;
@@ -22,18 +23,22 @@ class Weight extends Movable {
     velocity = new PVector(0, 0);
     mass = 250;
     sprite = new Sprite("logo", loadImage("sprites/game/env/weight/weight.png"), 1, 1, 0);
-    inputMass = new InputBox(new PVector(this.location.x + this.size.x + 16, this.location.y - this.size.y/28), new PVector(168, 32), 1);
+    massInput = new InputBox(new PVector(this.location.x + this.size.x + 16, this.location.y - this.size.y/28), new PVector(168, 40), 1, "Input Mass", "kg");
   }
 
   void display() {
     sprite.display(location.x, location.y);
-    inputMass.update();
-    inputMass.display();
-    
+    massInput.update();
+    massInput.display();
+  }
+  void updateInput(){
+    massInput.display();
+    massInput.update();
+    massSet();
   }
   
   void massSet(){
-    this.mass = inputMass.intValue;
-    setMass(inputMass.intValue);
+    this.mass = massInput.intValue;
+    setMass(massInput.intValue);
   }
 }

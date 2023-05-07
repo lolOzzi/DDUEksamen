@@ -21,6 +21,9 @@ Spring spring;
 Player player;
 Sprite spriteAnimation;
 
+boolean tempMouseReleased = true;
+
+
 public void setup() {
   //size(960, 540);
   fullScreen(P2D, 2);
@@ -66,9 +69,25 @@ void draw() {
 
 void keyPressed() {
   if (key == 'r') {
+    gameState.levelIndex = 0;
     currLevel = new Level1();
   }
   if (key == 't') {
+    gameState.levelIndex = 1;
     currLevel = new Level2(); 
   }
+  if (key == 'y') {
+    gameState.levelIndex = 2;
+    currLevel = new Level3(); 
+  }
+}
+void mouseReleased() {
+  tempMouseReleased = true;
+}
+boolean isMouseReleased() {
+  if (tempMouseReleased) {
+    tempMouseReleased = false;
+    return true;
+  }
+  return false;
 }
