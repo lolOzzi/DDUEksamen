@@ -1,6 +1,9 @@
 import processing.sound.*;
 
 
+final String THISPROC = this.getClass().getCanonicalName();
+final PApplet PAPPLET = this;
+
 SoundFile defaultTrack;
 SoundFile actionTrack;
 ArrayList<PImage> backgroundImgs = new ArrayList<PImage>();
@@ -9,7 +12,6 @@ ArrayList<PImage> platformImgs = new ArrayList<PImage>();
 ArrayList<Movable> arr = new ArrayList<Movable>();
   ArrayList<StaticObject> staticObjectList = new ArrayList<StaticObject>();
 Helper helper = new Helper();
-SpriteAnimation spriteAnimation;
 
 GameState gameState;
 Level1 l1;
@@ -17,10 +19,11 @@ Level currLevel;
 MainMenu mainMenu;
 Spring spring;
 Player player;
+Sprite spriteAnimation;
 
 public void setup() {
   //size(960, 540);
-  fullScreen(P2D, 1);
+  fullScreen(P2D, 2);
   noSmooth();
   frameRate(30);
   
@@ -42,7 +45,6 @@ public void setup() {
   groundImgs = helper.loadImages( "/sprites/game/env/ground/");
   platformImgs = helper.loadImages( "/sprites/game/env/platform/");
   // Create a new SpriteAnimation object
-  spriteAnimation = new SpriteAnimation();
 
   
   // Load sprite sheets for animation
@@ -50,7 +52,7 @@ public void setup() {
 
   // Add sprite animations to the SpriteAnimation object
   //Parameters: String name, PImage spriteSheet, int rows, int cols, int frameRate
-  spriteAnimation.addSprite("walk", walkSpriteSheet, 2, 2, 8);
+  spriteAnimation = new Sprite("walk", walkSpriteSheet, 2, 2, 8);
   textureMode(NORMAL);
   noStroke();
 }

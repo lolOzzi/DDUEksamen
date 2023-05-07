@@ -30,7 +30,6 @@ class Level0 extends Level {
     air.display();
     ground.display();
 
-    spriteAnimation.setSprite("walk");
     spriteAnimation.display(0, height - ground.size.y - 17*8);
     spriteAnimation.update();
 

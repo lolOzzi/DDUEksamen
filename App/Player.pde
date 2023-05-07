@@ -1,4 +1,4 @@
-class Player extends Movable { //<>//
+class Player extends Movable { //<>// //<>//
   PVector speed, ogLoc;
   float jump;
   boolean hitBlock = false;
@@ -10,7 +10,6 @@ class Player extends Movable { //<>//
   Sprite jumpSprite, walkSprite;
   Sprite defaultDeathSprite;
 
-  SpriteAnimation plAnim;
   boolean dying = false;
 
   Player(ArrayList<Liquid> liquidList, float g, Ground ground ) {
@@ -23,7 +22,6 @@ class Player extends Movable { //<>//
     ogLoc = new PVector(location.x, location.y);
     jump =  44.4;
 
-    plAnim = new SpriteAnimation();
     jumpSprite = new Sprite("logo", loadImage("sprites/game/player/movement/jump.png"), 1, 2, 0);
     walkSprite = new Sprite("walk", loadImage("sprites/game/player/movement/walk.png"), 1, 4, 11);
     defaultDeathSprite = new Sprite("death", loadImage("sprites/game/player/death animations/default death.png"), 1, 5, 8);
@@ -69,8 +67,8 @@ class Player extends Movable { //<>//
         defaultDeathSprite.display(location.x, location.y);
         defaultDeathSprite.update();
         if (defaultDeathSprite.currentFrame == 4) {
-          this.died = true;
-
+          delay(500);
+          this.died = true; 
         }
       }
 
@@ -103,9 +101,7 @@ class Player extends Movable { //<>//
   }
 
   void jump(PVector force) {
-    ;
     applyForce(new PVector(force.x, force.y));
-    println(acceleration);
   }
   void death(String deathType) {
     if (deathType == "electrocution") {

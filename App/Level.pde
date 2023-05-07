@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.reflect.Constructor;
 
 class Level {
 
@@ -19,8 +20,42 @@ class Level {
   StopBlock endBlock;
   Ground ground;
 
+  //First display pass
+  boolean first = true;
+
+  //Win screen
+  boolean won = false;
+  boolean wonSetup = true;
+  WinFlag winFlag;
+
+  //Timer
+  int startTime;
+  int endTime;
+  int elapsedTime;
+
+  //Level
+  String[] LEVEL_CLASS_NAMES = {"Level1", "Level2", "Level3"};
+
+
   public Level() {
+    //Level setup
+
+
     staticObjectList = new ArrayList<StaticObject>();
+
+    //Env setup
+    ground = new Ground();
+
+    //Player setup
+    player = new Player(liquidList, g, ground);
+
+
+    //Win setup
+    winFlag = new WinFlag(1500, (int) (ground.location.y - 128));
+    endBlock = winFlag.endBlock;
+    wScreen = new WinScreen();
+
+
     if (actionTrack.isPlaying()) {
       actionTrack.stop();
       defaultTrack.play();
@@ -39,9 +74,77 @@ class Level {
   public float getGravity() {
     return g;
   }
+
   Level reset() {
-    return new Level();
+    return currLevel.getCurrentLevel();
   }
+
   void nextLevel() {
+    currLevel = currLevel.getNextLevel();
+  }
+
+  void actionSetup() {
+    hBar.inPlay = true;
+    first = false;
+    defaultTrack.stop();
+    actionTrack.play();
+    actionTrack.loop();
+  }
+
+  void defaultDisplay() {
+    image(backgroundImgs.get(0), 0, 0);
+    ground.display();
+    player.moveUpdate();
+    winFlag.display();
+  }
+
+  void winUpdate() {
+    if (player.atEnd == true) {
+        won = true;
+    }
+    if (won) {
+      if (wonSetup) {
+        this.endTime = millis();
+        this.elapsedTime = this.endTime - this.startTime;
+        wonSetup = false;
+      }
+
+      wScreen.score = round(500 - elapsedTime/300);
+      if (wScreen.score < 100) {
+        wScreen.score = 100;
+      }
+      wScreen.display();
+    }
+  }
+
+  public Level getNextLevel() {
+    if (gameState.levelIndex < LEVEL_CLASS_NAMES.length - 1) {
+      gameState.levelIndex++;
+      final Class<?> appCls = PAPPLET.getClass(), innerCls;
+      try {
+        innerCls = Class.forName(appCls.getName() + '$' + LEVEL_CLASS_NAMES[gameState.levelIndex]);
+        return (Level) innerCls.getDeclaredConstructor(appCls).newInstance(PAPPLET);
+      }
+      catch (final ReflectiveOperationException ex) {
+        //System.err.println(ex);
+        throw new RuntimeException(ex);
+      }
+    } else {
+      // You can throw an exception or do something else if you reach the end of the levels array
+      System.out.println("You have reached the end of the levels.");
+    }
+    return null;
+  }
+
+  public Level getCurrentLevel() {
+    final Class<?> appCls = PAPPLET.getClass(), innerCls;
+    try {
+      innerCls = Class.forName(appCls.getName() + '$' + LEVEL_CLASS_NAMES[gameState.levelIndex]);
+      return (Level) innerCls.getDeclaredConstructor(appCls).newInstance(PAPPLET);
+    }
+    catch (final ReflectiveOperationException ex) {
+      //System.err.println(ex);
+      throw new RuntimeException(ex);
+    }
   }
 }

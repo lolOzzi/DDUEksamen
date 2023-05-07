@@ -1,10 +1,13 @@
 //Manages the state of the game, what to display (main menu, settings, game etc.)
 class GameState {
   char scene;
+  int levelIndex;
   //Constructer sets the default gamestate
   public GameState() {
     scene = '2';
+    levelIndex = 0;
   }
+  
 
   public void update() {
     switch(scene) {
@@ -19,6 +22,7 @@ class GameState {
       }
       break;
     case '2':
+      levelIndex = 0;
       mainMenu.display();
       mainMenu.update();
       break;

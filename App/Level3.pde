@@ -1,4 +1,4 @@
-class Level2 extends Level {
+class Level3 extends Level {
   ArrayList<Movable> arr = new ArrayList<Movable>();
 
   int amount = 10;
@@ -16,7 +16,7 @@ class Level2 extends Level {
   
 
 
-  public Level2() {
+  public Level3() {
     super();
     air = new Liquid(0, 0, width, height/3, 1.204, air_color );
     liquidList.add(air);
@@ -30,6 +30,11 @@ class Level2 extends Level {
     spikeArr.add(new Spike( new PVector(1030 -56, 800)));
     spikeArr.add(new Spike( new PVector(1030 -56 *2, 800)));
     spikeArr.add(new Spike( new PVector(1030 -56 *3, 800)));
+    spikeArr.add(new Spike( new PVector(1030 -56 *4, 800)));
+    spikeArr.add(new Spike( new PVector(1030 -56 *5, 800)));
+    spikeArr.add(new Spike( new PVector(1030 -56 *6, 800)));
+    spikeArr.add(new Spike( new PVector(1030 -56 *7, 800)));
+    spikeArr.add(new Spike( new PVector(1030 -56 *8, 800)));
 
   }
 

@@ -16,9 +16,7 @@ class Sprite {
 
   Sprite(String name, PImage spriteSheet, int rows, int cols, float spriteRate) {
     this(name, spriteSheet, rows, cols, spriteRate, 0);
-
   }
-
 
   Sprite(String name, PImage spriteSheet, int rows, int cols, float spriteRate, int cooldown) {
     this.name = name;

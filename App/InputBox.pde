@@ -10,9 +10,11 @@ class InputBox {
   int type;
   float intValue;
   ArrayList<Integer> num = new ArrayList<Integer>();
+  boolean justClicked = false; 
 
   PFont inputFont = createFont("./font/pixel.ttf", 16, false);
   String defaultString = "Type here";
+  int framesSinceActive = 0;
 
   InputBox() {
     location = new PVector(100, 100);
@@ -56,6 +58,12 @@ class InputBox {
     } else {
       text(defaultString, location.x + 10, location.y + size.y/2);
     }
+    //blink line every 0.5 sec
+    if (canType && framesSinceActive % 30 < 15) {
+      rectMode(CENTER);
+      rect(location.x + 10 + textWidth(combValue), location.y + size.y/2, 2, 20);
+      rectMode(BASELINE);
+    }
     textAlign(BASELINE, BASELINE);
     
   }
@@ -81,13 +89,22 @@ class InputBox {
 
     if (mouseInBox() && mousePressed) {
       canType = true;
-      println("I AM HERE");
+      if (justClicked == false) {
+        defaultString = "";
+        justClicked = true;
+      }
+      
     } else if (mouseInBox() == false && mousePressed) {
       canType = false;
-     
+      if (justClicked) {
+        defaultString = "Type here";
+        justClicked = false;
+      }
     }
 
     if (canType) {
+      framesSinceActive++;
+
       if (keyPressed == true && oneChar) {
         if (key == BACKSPACE && value.size() > 0) {
           oneChar = false;
