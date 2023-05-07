@@ -10,35 +10,34 @@ class Platform extends StaticObject {
 
   void display() {
 
-    pushMatrix();
-    translate(location.x, location.y);
+    PVector relPos = new PVector(location.x, location.y);
     textureWrap(REPEAT);
     beginShape();
     texture(platformImgs.get(0));
-    vertex(0, 0, 0, 0);
-    vertex(64, 0, 1, 0);
-    vertex(64, 64, 1, 1);
-    vertex(0, 64, 0, 1);
+    vertex(relPos.x, relPos.y, 0, 0);
+    vertex(relPos.x + 64, relPos.y, 1, 0);
+    vertex(relPos.x + 64, relPos.y + 64, 1, 1);
+    vertex(relPos.x, relPos.y + 64, 0, 1);
     endShape();
-    translate(64, 0);
+    relPos = new PVector(location.x + 64, location.y);
     textureWrap(REPEAT);
     beginShape();
     texture(platformImgs.get(1));
-    vertex(0, 0, 0, 0);
-    vertex(64*length, 0, length, 0);
-    vertex(64*length, 64, length, 1);
-    vertex(0, 64, 0, 1);
+    vertex(relPos.x, relPos.y, 0, 0);
+    vertex(relPos.x + 64*length, relPos.y, length, 0);
+    vertex(relPos.x + 64*length, relPos.y + 64, length, 1);
+    vertex(relPos.x, relPos.y + 64, 0, 1);
     endShape();
-    translate(64*length, 0);
+    relPos = new PVector(location.x + 64 + 64*length, location.y);
     textureWrap(REPEAT);
     beginShape();
     texture(platformImgs.get(2));
-    vertex(0, 0, 0, 0);
-    vertex(64, 0, 1, 0);
-    vertex(64, 64, 1, 1);
-    vertex(0, 64, 0, 1);
+    vertex(relPos.x, relPos.y, 0, 0);
+    vertex(relPos.x + 64, relPos.y, 1, 0);
+    vertex(relPos.x + 64, relPos.y + 64, 1, 1);
+    vertex(relPos.x, relPos.y + 64, 0, 1);
     endShape();
-    popMatrix();
+
     
     
     fill(0);

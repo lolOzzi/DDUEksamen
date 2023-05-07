@@ -56,6 +56,9 @@ class Level1 extends Level {
     redDoor = new Door( (int) (buttonPlatform2.location.x + buttonPlatform2.size.x / 2), (int) ground.location.y + doorGroundOffset, "red");
     blockArr.add(greenDoor.stopBlock);
     blockArr.add(redDoor.stopBlock);
+
+    PImage hintImg = loadImage("./formula/gravity.png");
+    hint = new Hint("Hint: Gravity", "The force of gravity is the weight of the object multiplied by the acceleration of gravity. The acceleration of gravity on Earth is 9.8 m/s^2.", hintImg);
     
   }
 
