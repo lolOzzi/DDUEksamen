@@ -32,7 +32,7 @@ class Level3 extends Level {
     float btnMaxForce = 50;
 
     //Platform & static object definitions
-    buttonPlatform = new Platform(800, 475 - 8, 2, (int) btnMinForce + "N - " + (int) btnMaxForce + "N");
+    buttonPlatform = new Platform(1000, 475 - 8, 2, (int) btnMinForce + "N - " + (int) btnMaxForce + "N");
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
 
@@ -64,7 +64,9 @@ class Level3 extends Level {
     spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *7, spikeRowHeight)));
     spikeArr.add(new Spike( new PVector(greenDoor.location.x +56 *8, spikeRowHeight)));
 
-;
+    PImage hintImg = loadImage("./formula/gravity.png");
+    hint = new Hint("Hint: Gravity & Play around", "The acceleration of gravity on Earth is still 9.8 m/s^2. This level is more about trying to get a feel for the relation betwwen force and mass", hintImg);
+    infoBox = new InfoBox("Player mass: " + player.mass + " kg;Gravity: " + g + " m/s^2;Spring angle: 45 deg");
 
   }
 

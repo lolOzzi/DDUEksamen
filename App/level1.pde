@@ -27,6 +27,7 @@ class Level1 extends Level {
   Door redDoor;
 
   int doorGroundOffset = -176 + 8;
+  int platformOffset = 500;
   
 
   PFont inputFont = createFont("./font/pixel.ttf", 16, false);
@@ -37,13 +38,13 @@ class Level1 extends Level {
     liquidList.add(air);
 
     //Weight button combinations
-    weight = new Weight(new PVector(275, 200), liquidList, g, ground);
-    button = new Button(275, 475-40, 20, 50, "green");
-    weight2 = new Weight(new PVector( (275 + spacing), 200), liquidList, g, ground);
-    button2 = new Button(275 + spacing, 475-40, 100, 140, "red");
+    weight = new Weight(new PVector(platformOffset + 25, 200), liquidList, g, ground);
+    button = new Button(platformOffset + 25, 475-40, 20, 50, "green");
+    weight2 = new Weight(new PVector( (platformOffset + 25 + spacing), 200), liquidList, g, ground);
+    button2 = new Button(platformOffset + 25 + spacing, 475-40, 100, 140, "red");
 
-    buttonPlatform = new Platform(250, 475 - 8, 2, (int) button.minForce + "N - " + (int) button.maxForce + "N");
-    buttonPlatform2 = new Platform(250 + spacing, 475 - 8, 2, (int) button2.minForce + "N - " +  (int) button2.maxForce + "N");
+    buttonPlatform = new Platform(platformOffset, 475 - 8, 2, (int) button.minForce + "N - " + (int) button.maxForce + "N");
+    buttonPlatform2 = new Platform(platformOffset + spacing, 475 - 8, 2, (int) button2.minForce + "N - " +  (int) button2.maxForce + "N");
     staticObjectList.add(ground);
     staticObjectList.add(buttonPlatform);
     staticObjectList.add(buttonPlatform2);
@@ -59,6 +60,7 @@ class Level1 extends Level {
 
     PImage hintImg = loadImage("./formula/gravity.png");
     hint = new Hint("Hint: Gravity", "The force of gravity is the weight of the object multiplied by the acceleration of gravity. The acceleration of gravity on Earth is 9.8 m/s^2.", hintImg);
+    infoBox = new InfoBox("Gravity: " + g + " m/s^2;");
     
   }
 
@@ -81,10 +83,8 @@ class Level1 extends Level {
         weight2.massInput.disabled = true;
       }
       count++;
-      
-      
-      //Puzzle 1
 
+      //Puzzle 1
       if (button.pressed) {
         blockArr.get(0).active = false;
       } else {

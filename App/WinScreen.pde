@@ -44,7 +44,15 @@ class WinScreen {
       currLevel.nextLevel();
     }
     if (mouseButton == LEFT && allB.isClicked()) {
-      gameState.scene = '2';
+      gameState.scene = '4';
+      gameState.levelIndex++;
+      if (gameState.levelIndex > LEVEL_CLASS_NAMES.length -1) {
+        gameState.levelIndex = 0;
+      }
+      if (gameState.levelIndex > gameState.maxLevelIndex) {
+        gameState.maxLevelIndex = gameState.levelIndex;
+        login.setLevelIndex();
+      }
     }
   }
 }

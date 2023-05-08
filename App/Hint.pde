@@ -10,14 +10,12 @@ class Hint {
         this.title = title;
         this.hint = hint;
         this.formula = formula;
-        this.size = new PVector(600, 400);
+        this.size = new PVector(600, 300);
         Pixel32 = createFont("./font/pixel.ttf", 32, false);
         Pixel16 = createFont("./font/pixel.ttf", 16, false);
     }
     
     void display() {
-
-
 
         fill(#ffa862);
         rect(width - size.x, 136 + 8, size.x, size.y);
@@ -32,9 +30,9 @@ class Hint {
         textFont(Pixel16);
         text(hint, relPos.x + 8, relPos.y + 64, size.x - 16, size.y - 200);
    
-        text("Formula: ", relPos.x + 8, relPos.y + size.y - 200);
+        text("Formula: ", relPos.x + 8, relPos.y + size.y - 100);
         rectMode(CORNER);
-        image(formula, relPos.x + textWidth("Formula: ") + 8, relPos.y + size.y - 200, formula.width/4, formula.height/4);
+        image(formula, relPos.x + textWidth("Formula: ") + 8, relPos.y + size.y - 100, formula.width/4, formula.height/4);
         rectMode(BASELINE);
         textAlign(BASELINE);
 

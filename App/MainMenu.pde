@@ -32,12 +32,17 @@ class MainMenu {
 
   void update() {
     playButton();
+    if (actionTrack.isPlaying()) {
+      actionTrack.stop();
+      defaultTrack.play();
+      defaultTrack.loop();
+    }
   }
   
   
   void playButton(){
-    if (mouseInBox() && mousePressed){
-      gameState.scene = '1';
+    if (mouseInBox() && mousePressed && isMouseReleased()){
+      gameState.scene = '4';
     }
   }
   

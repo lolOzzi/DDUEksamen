@@ -1,8 +1,11 @@
+import de.bezier.data.sql.*;
+import de.bezier.data.sql.mapper.*;
 import processing.sound.*;
 
 
 final String THISPROC = this.getClass().getCanonicalName();
 final PApplet PAPPLET = this;
+SQLite db;
 
 SoundFile defaultTrack;
 SoundFile actionTrack;
@@ -14,14 +17,20 @@ ArrayList<Movable> arr = new ArrayList<Movable>();
 Helper helper = new Helper();
 
 GameState gameState;
+LevelSelector levelSelector;
 Level1 l1;
 Level currLevel;
 MainMenu mainMenu;
 Spring spring;
 Player player;
 Sprite spriteAnimation;
+int playerID;
 
 boolean tempMouseReleased = true;
+Login login;
+
+int savedLevelIndex;
+ String[] LEVEL_CLASS_NAMES = {"Level1", "Level2", "Level3"};
 
 
 public void setup() {
@@ -30,7 +39,11 @@ public void setup() {
   noSmooth();
   frameRate(30);
   hint(DISABLE_TEXTURE_MIPMAPS);
-  
+  db = new SQLite( this, "./data/mvDB.sqlite" );
+  //Load images
+  backgroundImgs = helper.loadImages( "/sprites/game/env/background/");
+  groundImgs = helper.loadImages( "/sprites/game/env/ground/");
+  platformImgs = helper.loadImages( "/sprites/game/env/platform/");
     
   //music
   actionTrack = new SoundFile(this, "/music/action.wav");
@@ -40,23 +53,22 @@ public void setup() {
   defaultTrack.play();
   defaultTrack.loop();
   
-  
+  login = new Login();
   gameState = new GameState();
   currLevel = new Level1();
   mainMenu = new MainMenu();
+  levelSelector = new LevelSelector();
   //currLevel = new Level0();
-  backgroundImgs = helper.loadImages( "/sprites/game/env/background/");
-  groundImgs = helper.loadImages( "/sprites/game/env/ground/");
-  platformImgs = helper.loadImages( "/sprites/game/env/platform/");
+
   // Create a new SpriteAnimation object
 
   
   // Load sprite sheets for animation
-  PImage walkSpriteSheet = loadImage("coolguy_walk.png");
+  //PImage walkSpriteSheet = loadImage("coolguy_walk.png");
 
   // Add sprite animations to the SpriteAnimation object
   //Parameters: String name, PImage spriteSheet, int rows, int cols, int frameRate
-  spriteAnimation = new Sprite("walk", walkSpriteSheet, 2, 2, 8);
+ // spriteAnimation = new Sprite(walkSpriteSheet, 1, 8, 8);
   textureMode(NORMAL);
   noStroke();
 }
@@ -68,20 +80,6 @@ void draw() {
 
 }
 
-void keyPressed() {
-  if (key == 'r') {
-    gameState.levelIndex = 0;
-    currLevel = new Level1();
-  }
-  if (key == 't') {
-    gameState.levelIndex = 1;
-    currLevel = new Level2(); 
-  }
-  if (key == 'y') {
-    gameState.levelIndex = 2;
-    currLevel = new Level3(); 
-  }
-}
 void mouseReleased() {
   tempMouseReleased = true;
 }

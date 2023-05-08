@@ -19,6 +19,7 @@ class Level {
   boolean hintEnabled;
 
   Hint hint;
+  InfoBox infoBox;
 
   StopBlock endBlock;
   Ground ground;
@@ -37,7 +38,7 @@ class Level {
   int elapsedTime;
 
   //Level
-  String[] LEVEL_CLASS_NAMES = {"Level1", "Level2", "Level3"};
+
 
 
   public Level() {
@@ -58,7 +59,10 @@ class Level {
 
     //Hint setup
     PImage hintImg = loadImage("./formula/gravity.png");
-    hint = new Hint("Hint Test", "git gud lol", hintImg);
+    hint = new Hint("Hint", "Gravity", hintImg);
+
+    //InfoBox setup
+    infoBox = new InfoBox("Player mass: " + player.mass + " kg;Gravity: " + g + " m/s^2;");
 
 
     if (actionTrack.isPlaying()) {
@@ -123,8 +127,15 @@ class Level {
   }
 
   public Level getNextLevel() {
-    if (gameState.levelIndex < LEVEL_CLASS_NAMES.length - 1) {
       gameState.levelIndex++;
+      if (gameState.levelIndex > LEVEL_CLASS_NAMES.length -1) {
+        gameState.levelIndex = 0;
+      }
+      if (gameState.levelIndex > gameState.maxLevelIndex) {
+        gameState.maxLevelIndex = gameState.levelIndex;
+        login.setLevelIndex();
+      }
+
       final Class<?> appCls = PAPPLET.getClass(), innerCls;
       try {
         innerCls = Class.forName(appCls.getName() + '$' + LEVEL_CLASS_NAMES[gameState.levelIndex]);
@@ -134,10 +145,6 @@ class Level {
         println(ex.getCause());
         throw new RuntimeException(ex);
       }
-    } else {
-      System.out.println("You have reached the end of the levels.");
-    }
-    return null;
   }
 
   public Level getCurrentLevel() {

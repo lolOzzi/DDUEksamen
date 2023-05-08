@@ -33,6 +33,12 @@ class InputBox {
   }
 
   InputBox(PVector location, PVector size, int type, String defaultString, String unit) {
+    this(location, size, type, defaultString, unit, false);
+  }
+  InputBox(PVector location, PVector size, int type, String defaultString, String unit, boolean manualSize) {
+    this(location, size, type, defaultString, unit, false,  createFont("./font/pixel.ttf", 16, false));
+  }
+  InputBox(PVector location, PVector size, int type, String defaultString, String unit, boolean manualSize, PFont customFont) {
     this.location = location;
     this.size = size;
     this.type = type;
@@ -41,8 +47,12 @@ class InputBox {
     oneChar = true;
     combValue = "";
     defaultDisplayString = defaultString;
-    textFont(inputFont);
-    this.size = new PVector(textWidth(defaultString) + 10, size.y);
+    textFont(customFont);
+    this.inputFont = customFont;
+    if (!manualSize) {
+      this.size = new PVector(textWidth(defaultString) + 10, size.y);
+    }
+
     insNum();
   }
 
